@@ -2,10 +2,10 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db } from "@/lib/firebase"; // Client SDK
+import { auth, db } from "@/lib/firebase"; 
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
-import { Html5QrcodeScanner } from "html5-qrcode";
+import { Html5QrcodeScanner, Html5Qrcode } from "html5-qrcode"; // Import Html5Qrcode class
 import "../user_erp_style.css"; 
 
 export default function AttendancePage() {
@@ -15,6 +15,8 @@ export default function AttendancePage() {
   const [loading, setLoading] = useState(true);
   const [scanResult, setScanResult] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
+  const [dragActive, setDragActive] = useState(false); // State for drag visual
+  
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
 
   // 1. Auth & Real-time Status Listener
@@ -43,7 +45,7 @@ export default function AttendancePage() {
     return () => unsubscribeAuth();
   }, [router]);
 
-  // 2. Initialize Scanner
+  // 2. Initialize Camera Scanner
   useEffect(() => {
     // Only init scanner if user is loaded and not currently processing a scan
     if (!loading && !scanResult && !processing) {
@@ -86,7 +88,55 @@ export default function AttendancePage() {
     };
   }, [loading, scanResult, processing]);
 
-  // 3. Handle Successful Scan
+  // --- NEW: DRAG AND DROP LOGIC ---
+  
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      processFile(file);
+    }
+  };
+
+  const processFile = async (file: File) => {
+    if (processing) return;
+    setProcessing(true);
+    setScanResult("Analyzing Image...");
+
+    try {
+      // Create a temporary instance just for file scanning
+      const html5QrCode = new Html5Qrcode("file-reader-hidden");
+      const result = await html5QrCode.scanFileV2(file, true);
+      
+      // If successful, pass the text to our main handler
+      handleScanSuccess(result.decodedText);
+      
+      // Clean up
+      html5QrCode.clear();
+    } catch (err) {
+      console.error("File Scan Error", err);
+      setScanResult("Error: Could not read QR code from image.");
+      setTimeout(() => {
+        setScanResult(null);
+        setProcessing(false);
+      }, 3000);
+    }
+  };
+
+  // 3. Shared Success Handler (Used by both Camera & Drag-Drop)
   const handleScanSuccess = async (qrData: string) => {
     if (processing) return;
     
@@ -104,8 +154,6 @@ export default function AttendancePage() {
       const token = await auth.currentUser?.getIdToken();
 
       // Determine action based on current status (Auto-Toggle)
-      // If currently IN -> We are checking OUT. 
-      // If currently OUT -> We are checking IN.
       const action = currentStatus === "IN" ? "check-out" : "check-in";
 
       const response = await fetch("/api/attendance", {
@@ -115,7 +163,7 @@ export default function AttendancePage() {
           "Authorization": token || ""
         },
         body: JSON.stringify({
-          gymId: qrData, // Assuming QR contains Gym ID (e.g., "ICONIC_KARNAL")
+          gymId: qrData, 
           action: action
         })
       });
@@ -144,7 +192,30 @@ export default function AttendancePage() {
   };
 
   return (
-    <div className="erp-container">
+    <div 
+      className="erp-container"
+      onDragEnter={handleDrag} 
+      onDragOver={handleDrag} 
+      onDragLeave={handleDrag} 
+      onDrop={handleDrop}
+    >
+      {/* Hidden div required by library to process files */}
+      <div id="file-reader-hidden" style={{display: 'none'}}></div>
+
+      {/* DRAG OVERLAY (Shows when dragging file) */}
+      {dragActive && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.85)', zIndex: 9999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: 'white', fontSize: '2rem', border: '5px dashed white',
+          flexDirection: 'column', textAlign: 'center'
+        }}>
+          <div style={{fontSize: '4rem', marginBottom: '20px'}}>📂</div>
+          Drop QR Image Here
+        </div>
+      )}
+
       <div className="content-wrapper" style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
         
         {/* Header */}
@@ -215,9 +286,19 @@ export default function AttendancePage() {
               )}
             </div>
 
-            <p style={{ marginTop: '20px', color: '#888', fontSize: '0.85rem' }}>
-              Point your camera at the Gym's QR Code to mark your attendance.
-            </p>
+            {/* Helper Text */}
+            <div style={{ 
+              marginTop: '20px', padding: '15px', 
+              border: '2px dashed #ccc', borderRadius: '8px',
+              backgroundColor: '#fafafa' 
+            }}>
+              <p style={{ color: '#666', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                Camera not working?
+              </p>
+              <p style={{ color: '#888', fontSize: '0.85rem' }}>
+                Drag and drop a QR code image anywhere on this page to scan it.
+              </p>
+            </div>
 
           </div>
         </main>
