@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "@/lib/firebase"; 
-import { doc, getDoc, Timestamp } from "firebase/firestore"; // Added Timestamp import
+import { doc, getDoc, Timestamp } from "firebase/firestore"; 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import "../user_erp_style.css"; 
 
@@ -23,7 +23,7 @@ export default function UserPortal() {
     },
     attendance: { 
       attended: 0, 
-      scheduled: 0, // Will be calculated below
+      scheduled: 0, 
       percentage: 0 
     },
     rating: 0,
@@ -45,7 +45,7 @@ export default function UserPortal() {
         if (docSnap.exists()) {
           const data = docSnap.data();
 
-          // --- THE FIX: USE 'createdAt' ---
+          // --- LOGIC 1: CALCULATE SCHEDULED (POTENTIAL) ---
           let calculatedScheduled = 0;
           let joinDate: Date | null = null;
 
@@ -72,16 +72,31 @@ export default function UserPortal() {
             // LOGIC: 2 Sessions per day
             calculatedScheduled = diffDays * 2;
           }
-          // -----------------------
 
+          // --- LOGIC 2: ROBUST ATTENDANCE FETCH ---
+          // (Moved this OUT of the object literal so it is valid syntax)
+          let attendedVal = 0;
+
+          if (data.attendance && data.attendance.attended !== undefined) {
+             // Case A: It's a proper nested object
+             attendedVal = data.attendance.attended;
+          } else if (data["attendance.attended"] !== undefined) {
+             // Case B: It's a flat key with a dot in the name
+             attendedVal = data["attendance.attended"];
+          }
+
+          // Force it to be a Number
+          const attendedCount = Number(attendedVal);
+
+          // --- UPDATE STATE ---
           setUser({
             name: data.name || "Member",
-            phone: data.phone || currentUser.email,
+            phone: data.phone || currentUser.email || "",
             plan: data.plan || { name: "No Active Plan", price: "0", daysLeft: 0 },
             attendance: {
-              attended: data.attendance?.attended || 0,
-              scheduled: calculatedScheduled, // <--- The calculated value
-              percentage: calculatePercentage(data.attendance?.attended || 0, calculatedScheduled)
+              attended: attendedCount, 
+              scheduled: calculatedScheduled,
+              percentage: calculatePercentage(attendedCount, calculatedScheduled)
             },
             rating: data.rating || 0,
             message: data.message || "No new announcements."
