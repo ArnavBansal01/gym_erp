@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { 
   GoogleAuthProvider, 
   signInWithPopup 
 } from "firebase/auth";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { 
+  doc, 
+  getDoc, 
+  setDoc, 
+  collection, 
+  getDocs, 
+  serverTimestamp 
+} from "firebase/firestore";
 import { auth, db } from "@/lib/firebase"; 
 import "./login_style.css"; 
 
@@ -14,15 +21,47 @@ export default function LoginPage() {
   const router = useRouter();
   
   // State
-  // Kept structure same to avoid breaking change handlers, though password is now unused
-  const [formData, setFormData] = useState({ email: "", password: "", name: "", phone: "" });
+  const [formData, setFormData] = useState({ 
+    email: "", 
+    password: "", 
+    name: "", 
+    phone: "",
+    assignedTrainer: null as any 
+  });
+  const [trainers, setTrainers] = useState<any[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isNewUser, setIsNewUser] = useState(false); 
 
-  // Handle text input changes (For the onboarding name/phone form)
+  // --- LOGIC: FETCH TRAINERS ---
+  useEffect(() => {
+    if (isNewUser) {
+      const fetchTrainers = async () => {
+        try {
+          const querySnapshot = await getDocs(collection(db, "trainers"));
+          const trainersList = querySnapshot.docs.map(doc => ({
+            uid: doc.id,
+            ...doc.data()
+          }));
+          setTrainers(trainersList);
+        } catch (err) {
+          console.error("Error fetching trainers:", err);
+          setError("Could not load trainers list.");
+        }
+      };
+      fetchTrainers();
+    }
+  }, [isNewUser]);
+
+  // Handle text input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle Trainer dropdown selection
+  const handleTrainerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTrainer = trainers.find(t => t.uid === e.target.value);
+    setFormData({ ...formData, assignedTrainer: selectedTrainer || null });
   };
 
   // --- HELPER: CHECK IF USER EXISTS ---
@@ -47,13 +86,12 @@ export default function LoginPage() {
       if (exists) {
         router.push("/dashboard");
       } else {
-        // Pre-fill name and email from Google for the next step
         setFormData(prev => ({ 
           ...prev, 
           email: user.email || "", 
           name: user.displayName || "" 
         }));
-        setIsNewUser(true); // Switch to onboarding screen
+        setIsNewUser(true); 
         setIsLoading(false);
       }
     } catch (err: any) {
@@ -63,23 +101,33 @@ export default function LoginPage() {
     }
   };
 
-  // --- LOGIC: SAVE PROFILE (Step 2 - Unchanged) ---
+  // --- LOGIC: SAVE PROFILE ---
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.assignedTrainer) {
+      setError("Please select a trainer.");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       const user = auth.currentUser;
       if (!user) throw new Error("No user found. Please login again.");
 
-      // Database logic remains exactly the same
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
         name: formData.name,   
         phone: formData.phone, 
         createdAt: serverTimestamp(),
-        role: "member"
+        role: "member",
+        assignedTrainer: {
+          uid: formData.assignedTrainer.uid,
+          name: formData.assignedTrainer.name,
+          email: formData.assignedTrainer.email
+        }
       });
 
       router.push("/dashboard");
@@ -94,7 +142,6 @@ export default function LoginPage() {
     <div className="login-container">
       <div className="login-card">
         
-        {/* LOGO SECTION */}
         <div className="login-header">
           <img 
             src="https://cdn-icons-png.flaticon.com/512/2964/2964514.png" 
@@ -107,15 +154,15 @@ export default function LoginPage() {
 
         {error && <div className="error-message" style={{color: 'red', textAlign: 'center', marginBottom:'1rem'}}>{error}</div>}
 
-        {/* --- SCREEN 1: GOOGLE LOGIN ONLY --- */}
+        {/* --- SCREEN 1: GOOGLE LOGIN --- */}
         {!isNewUser && (
-          <div style={{ padding: "20px 0" }}> {/* Added minimal padding for spacing */}
+          <div style={{ padding: "20px 0" }}>
             <button 
               type="button" 
               className="google-btn" 
               onClick={handleGoogleLogin}
               disabled={isLoading}
-              style={{ width: "100%" }} // Ensure it stays full width
+              style={{ width: "100%" }}
             >
               <img 
                 src="https://www.svgrepo.com/show/475656/google-color.svg" 
@@ -126,7 +173,7 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* --- SCREEN 2: ONBOARDING (Name/Phone) --- */}
+        {/* --- SCREEN 2: ONBOARDING --- */}
         {isNewUser && (
           <form onSubmit={handleSaveProfile} className="login-form">
             <div className="input-group">
@@ -151,6 +198,33 @@ export default function LoginPage() {
                 onChange={handleChange}
                 required
               />
+            </div>
+
+            {/* TRAINER DROPDOWN */}
+            <div className="input-group">
+              <label>Choose Your Trainer</label>
+              <select 
+                name="trainer" 
+                required 
+                onChange={handleTrainerChange}
+                className="trainer-select"
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  borderRadius: '8px',
+                  border: '1px solid #ddd',
+                  backgroundColor: 'white',
+                  marginTop: '5px',
+                  fontSize: '1rem'
+                }}
+              >
+                <option value="">Select a Trainer</option>
+                {trainers.map((trainer) => (
+                  <option key={trainer.uid} value={trainer.uid}>
+                    {trainer.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <button type="submit" className="login-btn" disabled={isLoading}>
