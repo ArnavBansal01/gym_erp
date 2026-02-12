@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { 
-  signInWithEmailAndPassword, 
   GoogleAuthProvider, 
   signInWithPopup 
 } from "firebase/auth";
@@ -15,55 +14,28 @@ export default function LoginPage() {
   const router = useRouter();
   
   // State
+  // Kept structure same to avoid breaking change handlers, though password is now unused
   const [formData, setFormData] = useState({ email: "", password: "", name: "", phone: "" });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isNewUser, setIsNewUser] = useState(false); 
 
-  // Handle text input changes
+  // Handle text input changes (For the onboarding name/phone form)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // --- HELPER: CHECK IF USER EXISTS ---
-  // This function checks Firestore to see if we know this user yet
   const checkUserExists = async (uid: string) => {
     const userDocRef = doc(db, "users", uid);
     const userSnap = await getDoc(userDocRef);
     return userSnap.exists();
   };
 
-  // --- LOGIC 1: EMAIL LOGIN ---
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      const user = userCredential.user;
-
-      const exists = await checkUserExists(user.uid);
-
-      if (exists) {
-        router.push("/dashboard");
-      } else {
-        // Prepare form with known data
-        setFormData(prev => ({ ...prev, email: user.email || "" }));
-        setIsNewUser(true);
-        setIsLoading(false);
-      }
-    } catch (err: any) {
-      console.error("Login Error:", err);
-      setError("Invalid email or password.");
-      setIsLoading(false);
-    }
-  };
-
-  // --- LOGIC 2: GOOGLE LOGIN ---
+  // --- LOGIC: GOOGLE LOGIN ---
   const handleGoogleLogin = async () => {
     setError("");
-    setIsLoading(true); // Temporarily show loading state
+    setIsLoading(true); 
 
     try {
       const provider = new GoogleAuthProvider();
@@ -75,13 +47,13 @@ export default function LoginPage() {
       if (exists) {
         router.push("/dashboard");
       } else {
-        // Pre-fill name and email from Google
+        // Pre-fill name and email from Google for the next step
         setFormData(prev => ({ 
           ...prev, 
           email: user.email || "", 
           name: user.displayName || "" 
         }));
-        setIsNewUser(true);
+        setIsNewUser(true); // Switch to onboarding screen
         setIsLoading(false);
       }
     } catch (err: any) {
@@ -91,7 +63,7 @@ export default function LoginPage() {
     }
   };
 
-  // --- LOGIC 3: SAVE PROFILE (Step 2) ---
+  // --- LOGIC: SAVE PROFILE (Step 2 - Unchanged) ---
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -100,11 +72,12 @@ export default function LoginPage() {
       const user = auth.currentUser;
       if (!user) throw new Error("No user found. Please login again.");
 
+      // Database logic remains exactly the same
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
-        name: formData.name,   // Taken from form (or pre-filled by Google)
-        phone: formData.phone, // Taken from form
+        name: formData.name,   
+        phone: formData.phone, 
         createdAt: serverTimestamp(),
         role: "member"
       });
@@ -134,63 +107,23 @@ export default function LoginPage() {
 
         {error && <div className="error-message" style={{color: 'red', textAlign: 'center', marginBottom:'1rem'}}>{error}</div>}
 
-        {/* --- SCREEN 1: LOGIN OPTIONS --- */}
+        {/* --- SCREEN 1: GOOGLE LOGIN ONLY --- */}
         {!isNewUser && (
-          <>
-            <form onSubmit={handleEmailLogin} className="login-form">
-              <div className="input-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="name@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <button type="submit" className="login-btn" disabled={isLoading}>
-                {isLoading ? "Verifying..." : "Sign In"}
-              </button>
-            </form>
-
-            {/* DIVIDER */}
-            <div className="divider">
-              <span>OR</span>
-            </div>
-
-            {/* GOOGLE BUTTON */}
+          <div style={{ padding: "20px 0" }}> {/* Added minimal padding for spacing */}
             <button 
               type="button" 
               className="google-btn" 
               onClick={handleGoogleLogin}
               disabled={isLoading}
+              style={{ width: "100%" }} // Ensure it stays full width
             >
               <img 
                 src="https://www.svgrepo.com/show/475656/google-color.svg" 
                 alt="Google Logo" 
               />
-              Sign in with Google
+              {isLoading ? "Connecting..." : "Sign in with Google"}
             </button>
-
-            <div className="login-footer">
-              <p>Forgot Password? <a href="#">Reset here</a></p>
-              <p>New Member? Contact Reception</p>
-            </div>
-          </>
+          </div>
         )}
 
         {/* --- SCREEN 2: ONBOARDING (Name/Phone) --- */}
