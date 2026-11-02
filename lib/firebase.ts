@@ -20,6 +20,6 @@ const auth = getAuth(app);
 const db = getFirestore(app); // <--- FIXED: Changed from getDatabase to getFirestore
 
 // Enable phone auth settings
-auth.useDeviceLanguage(); 
+auth.useDeviceLanguage();
 
 export { auth, db };

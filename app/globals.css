@@ -1,19 +1,144 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@source "../app";
+@source "../lib";
 
 :root {
-  --font-poppins: 'Poppins', sans-serif;
-  --font-montserrat: 'Montserrat', sans-serif;
-}
-
-body {
-  font-family: var(--font-montserrat);
-  margin: 0;
-  padding: 0;
-  background-color: #f4f7f6;
+  --font-poppins: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-montserrat: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --bg-main: #090d16;
+  --bg-card: #0f172a;
+  --bg-card-hover: #1e293b;
+  --border-subtle: #1e293b;
+  --border-active: #334155;
+  
+  --accent-emerald: #10b981;
+  --accent-emerald-hover: #059669;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.25);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --status-active: #10b981;
+  --status-warning: #f59e0b;
+  --status-danger: #ef4444;
 }
 
 * {
   box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #090d16;
+  color: #f8fafc;
+  font-family: var(--font-poppins);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+    font-family: inherit;
+  }
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Card System */
+.gym-card {
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s ease;
+}
+.gym-card:hover {
+  border-color: #334155;
+}
+
+/* Form Inputs */
+.gym-input, .gym-select {
+  width: 100%;
+  padding: 12px 14px;
+  background-color: #0b1120;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  color: #f8fafc;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+.gym-input:focus, .gym-select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+.gym-input::placeholder {
+  color: #64748b;
+}
+
+/* Highly Visible Buttons */
+.btn-emerald {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #10b981 !important;
+  color: #042f2e !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  padding: 10px 20px !important;
+  border-radius: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid #34d399 !important;
+  cursor: pointer !important;
+}
+.btn-emerald:hover {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+}
+
+.btn-slate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  padding: 10px 18px !important;
+  border-radius: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border: 1px solid #475569 !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+.btn-slate:hover {
+  background-color: #334155 !important;
+  border-color: #64748b !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
 }

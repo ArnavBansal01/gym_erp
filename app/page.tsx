@@ -2,238 +2,799 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { 
-  GoogleAuthProvider, 
-  signInWithPopup 
-} from "firebase/auth";
-import { 
-  doc, 
-  getDoc, 
-  setDoc, 
-  collection, 
-  getDocs, 
-  serverTimestamp 
-} from "firebase/firestore";
-import { auth, db } from "@/lib/firebase"; 
-import "./login_style.css"; 
+import { auth } from "@/lib/firebase";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { GYM_PLANS } from "@/lib/membershipUtils";
+import {
+  IconDumbbell,
+  IconUser,
+  IconUsers,
+  IconShield,
+  IconCheck,
+  IconX,
+  IconAlertCircle,
+  IconLogOut,
+  IconStar,
+  IconQrCode,
+  IconClock,
+} from "@/lib/svgIcons";
 
-export default function LoginPage() {
+export default function Home() {
   const router = useRouter();
-  
-  // State
-  const [formData, setFormData] = useState({ 
-    email: "", 
-    password: "", 
-    name: "", 
-    phone: "",
-    assignedTrainer: null as any 
-  });
-  const [trainers, setTrainers] = useState<any[]>([]);
+
+  // Loading & Error States
+  const [loadingRole, setLoadingRole] = useState<"member" | "trainer" | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isNewUser, setIsNewUser] = useState(false); 
+  const [rejectedTrainer, setRejectedTrainer] = useState<any | null>(null);
 
-  // --- LOGIC: FETCH TRAINERS ---
+  // Modals
+  const [showMemberModal, setShowMemberModal] = useState(false);
+  const [showTrainerModal, setShowTrainerModal] = useState(false);
+
+  // Active Session State
+  const [activeSession, setActiveSession] = useState<{
+    user: any;
+    email: string;
+    name: string;
+  } | null>(null);
+
+  // Approved Trainers for Member coach assignment
+  const [trainers, setTrainers] = useState<any[]>([]);
+
+  // Registration Form State
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    assignedTrainer: null as any,
+    selectedPlan: GYM_PLANS[0],
+    specialization: "Strength & Conditioning",
+    experience: "1-3 Years",
+  });
+
+  // Check active session on load
   useEffect(() => {
-    if (isNewUser) {
-      const fetchTrainers = async () => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      if (currentUser) {
         try {
-          const querySnapshot = await getDocs(collection(db, "trainers"));
-          const trainersList = querySnapshot.docs.map(doc => ({
-            uid: doc.id,
-            ...doc.data()
-          }));
-          setTrainers(trainersList);
-        } catch (err) {
-          console.error("Error fetching trainers:", err);
-          setError("Could not load trainers list.");
+          const idToken = await currentUser.getIdToken();
+          const res = await fetch("/api/auth/me", {
+            headers: { Authorization: `Bearer ${idToken}` },
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.exists && data.user) {
+              setActiveSession({
+                user: data.user,
+                email: currentUser.email || "",
+                name: data.user.name || currentUser.displayName || "User",
+              });
+              if (
+                data.user.role === "trainer" &&
+                (data.user.status === "rejected" || data.user.status === "revoked")
+              ) {
+                setRejectedTrainer(data.user);
+              }
+            }
+          }
+        } catch (e) {
+          console.error("Session check error:", e);
         }
-      };
-      fetchTrainers();
-    }
-  }, [isNewUser]);
+      } else {
+        setActiveSession(null);
+      }
+    });
 
-  // Handle text input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    return () => unsubscribe();
+  }, []);
 
-  // Handle Trainer dropdown selection
-  const handleTrainerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTrainer = trainers.find(t => t.uid === e.target.value);
-    setFormData({ ...formData, assignedTrainer: selectedTrainer || null });
-  };
+  // Fetch approved trainers via server API
+  useEffect(() => {
+    const fetchApprovedTrainers = async () => {
+      try {
+        const res = await fetch("/api/trainers");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.trainers)) {
+            setTrainers(data.trainers);
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching trainers:", err);
+      }
+    };
+    fetchApprovedTrainers();
+  }, []);
 
-  // --- HELPER: CHECK IF USER EXISTS ---
-  const checkUserExists = async (uid: string) => {
-    const userDocRef = doc(db, "users", uid);
-    const userSnap = await getDoc(userDocRef);
-    return userSnap.exists();
-  };
-
-  // --- LOGIC: GOOGLE LOGIN ---
-  const handleGoogleLogin = async () => {
+  // Handle Google Login for a specific role card
+  const handleRoleLogin = async (targetRole: "member" | "trainer") => {
     setError("");
-    setIsLoading(true); 
+    setLoadingRole(targetRole);
+    setRejectedTrainer(null);
 
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      const idToken = await user.getIdToken();
 
-      const exists = await checkUserExists(user.uid);
+      const res = await fetch("/api/auth/me", {
+        headers: { Authorization: `Bearer ${idToken}` },
+      });
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {}
 
-      if (exists) {
-        router.push("/dashboard");
+      if (!res.ok) {
+        throw new Error(data.error || "Authentication failed on backend");
+      }
+
+      if (data.exists && data.user) {
+        if (targetRole === "trainer") {
+          if (data.user.role === "trainer") {
+            if (data.user.status === "pending") {
+              router.push("/pending-approval");
+            } else if (data.user.status === "rejected" || data.user.status === "revoked") {
+              setRejectedTrainer(data.user);
+            } else {
+              router.push("/trainer/dashboard");
+            }
+          } else {
+            setError(
+              `This Google account is registered as a Member (${data.user.name || "User"}). Please sign in under Member, or apply as a Coach.`
+            );
+          }
+        } else {
+          // targetRole === "member"
+          if (data.user.role === "member") {
+            router.push("/dashboard");
+          } else if (data.user.role === "trainer") {
+            setError(
+              `This Google account is registered as a Trainer (${data.user.name || "Coach"}). Please sign in under Trainer.`
+            );
+          } else {
+            router.push("/dashboard");
+          }
+        }
       } else {
-        setFormData(prev => ({ 
-          ...prev, 
-          email: user.email || "", 
-          name: user.displayName || "" 
+        // User not in DB yet: prompt registration modal
+        setFormData((prev) => ({
+          ...prev,
+          name: user.displayName || "",
+          email: user.email || "",
         }));
-        setIsNewUser(true); 
-        setIsLoading(false);
+
+        if (targetRole === "member") {
+          setShowMemberModal(true);
+        } else {
+          setShowTrainerModal(true);
+        }
       }
     } catch (err: any) {
-      console.error("Google Login Error:", err);
-      setError("Google Sign-In failed.");
-      setIsLoading(false);
+      if (err.code !== "auth/popup-closed-by-user") {
+        setError(err.message || "Sign in failed");
+      }
+    } finally {
+      setLoadingRole(null);
     }
   };
 
-  // --- LOGIC: SAVE PROFILE ---
-  const handleSaveProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.assignedTrainer) {
-      setError("Please select a trainer.");
-      return;
-    }
-
-    setIsLoading(true);
+  // Submit registration for Member or Trainer
+  const submitRegistration = async (role: "member" | "trainer") => {
+    setError("");
+    setSubmitting(true);
 
     try {
-      const user = auth.currentUser;
-      if (!user) throw new Error("No user found. Please login again.");
+      let currentUser = auth.currentUser;
+      let idToken = "";
 
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        email: user.email,
-        name: formData.name,   
-        phone: formData.phone, 
-        createdAt: serverTimestamp(),
-        role: "member",
-        assignedTrainer: {
-          uid: formData.assignedTrainer.uid,
-          name: formData.assignedTrainer.name,
-          email: formData.assignedTrainer.email
-        }
+      if (!currentUser) {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        currentUser = result.user;
+        idToken = await currentUser.getIdToken();
+      } else {
+        idToken = await currentUser.getIdToken();
+      }
+
+      const payload: any = {
+        name: formData.name.trim() || "User",
+        phone: formData.phone.trim() || "N/A",
+        role,
+      };
+
+      if (role === "member") {
+        payload.assignedTrainer = formData.assignedTrainer
+          ? {
+              uid: formData.assignedTrainer.uid,
+              name: formData.assignedTrainer.name,
+              phone: formData.assignedTrainer.phone || "",
+            }
+          : {
+              uid: "general",
+              name: "General Floor Coach",
+              phone: "",
+            };
+        const startDate = new Date();
+        const endDate = new Date(startDate);
+        endDate.setMonth(endDate.getMonth() + formData.selectedPlan.durationMonths);
+        const daysLeft = Math.max(1, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)));
+
+        payload.plan = {
+          name: formData.selectedPlan.name,
+          tier: formData.selectedPlan.tier,
+          price: String(formData.selectedPlan.price),
+          durationMonths: formData.selectedPlan.durationMonths,
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          daysLeft,
+        };
+      } else {
+        payload.specialization = formData.specialization;
+        payload.experience = formData.experience;
+      }
+
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify(payload),
       });
 
-      router.push("/dashboard");
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {}
 
+      if (!res.ok) {
+        throw new Error(data.error || `Failed to register (${res.status})`);
+      }
+
+      if (role === "trainer") {
+        setShowTrainerModal(false);
+        router.push("/pending-approval");
+      } else {
+        setShowMemberModal(false);
+        router.push("/dashboard");
+      }
     } catch (err: any) {
-      setError("Error saving profile: " + err.message);
-      setIsLoading(false);
+      if (err.code !== "auth/popup-closed-by-user") {
+        setError(err.message || "Registration failed");
+      }
+    } finally {
+      setSubmitting(false);
     }
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setActiveSession(null);
+    setRejectedTrainer(null);
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        
-        <div className="login-header">
-          <img 
-            src="https://cdn-icons-png.flaticon.com/512/2964/2964514.png" 
-            alt="Iconic Gym Logo" 
-            className="login-logo"
-          />
-          <h1>Iconic Gym</h1>
-          <p>{isNewUser ? "One Last Step..." : "Member Portal"}</p>
-        </div>
+    <div className="min-h-screen bg-[#070b14] text-slate-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950">
+      {/* ==================== TOP HEADER ==================== */}
+      <header className="border-b border-slate-800/80 bg-[#0c1220]/80 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* LOGO & GYM TITLE */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-600 to-slate-900 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 ring-1 ring-emerald-500/30">
+              <IconDumbbell size={22} />
+            </div>
+            <div>
+              <span className="font-extrabold tracking-wider text-base uppercase text-white block leading-tight">
+                Iconic Gym
+              </span>
+              <span className="text-[11px] text-emerald-400 font-semibold tracking-wide">
+                Karnal Fitness Club
+              </span>
+            </div>
+          </div>
 
-        {error && <div className="error-message" style={{color: 'red', textAlign: 'center', marginBottom:'1rem'}}>{error}</div>}
-
-        {/* --- SCREEN 1: GOOGLE LOGIN --- */}
-        {!isNewUser && (
-          <div style={{ padding: "20px 0" }}>
-            <button 
-              type="button" 
-              className="google-btn" 
-              onClick={handleGoogleLogin}
-              disabled={isLoading}
-              style={{ width: "100%" }}
+          {/* TOP RIGHT: ADMIN ONLY */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => router.push("/admin")}
+              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/30 hover:border-amber-500/70 text-amber-400 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+              title="Admin ERP Login"
             >
-              <img 
-                src="https://www.svgrepo.com/show/475656/google-color.svg" 
-                alt="Google Logo" 
-              />
-              {isLoading ? "Connecting..." : "Sign in with Google"}
+              <IconShield size={15} />
+              <span>Admin</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* ==================== MAIN CONTENT ==================== */}
+      <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center w-full">
+        {/* ACTIVE SESSION BANNER */}
+        {activeSession && (
+          <div className="w-full max-w-2xl mb-8 p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/30 shadow-xl backdrop-blur-md flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                {activeSession.user.role === "trainer" ? "TR" : "MB"}
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs uppercase font-bold text-white">
+                    {activeSession.name}
+                  </span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    {activeSession.user.role}
+                  </span>
+                </div>
+                <span className="text-xs text-slate-400">{activeSession.email}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (activeSession.user.role === "trainer") {
+                    router.push(
+                      activeSession.user.status === "approved"
+                        ? "/trainer/dashboard"
+                        : "/pending-approval"
+                    );
+                  } else if (activeSession.user.role === "admin") {
+                    router.push("/admin");
+                  } else {
+                    router.push("/dashboard");
+                  }
+                }}
+                className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+              >
+                Go to Portal &rarr;
+              </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+                title="Sign Out"
+              >
+                <IconLogOut size={16} />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ERROR MESSAGE */}
+        {error && (
+          <div className="w-full max-w-2xl mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-3">
+            <IconAlertCircle size={18} className="shrink-0 text-rose-400" />
+            <span className="flex-1">{error}</span>
+            <button
+              type="button"
+              onClick={() => setError("")}
+              className="text-slate-400 hover:text-white"
+            >
+              <IconX size={16} />
             </button>
           </div>
         )}
 
-        {/* --- SCREEN 2: ONBOARDING --- */}
-        {isNewUser && (
-          <form onSubmit={handleSaveProfile} className="login-form">
-            <div className="input-group">
-              <label>Full Name</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="John Doe"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label>Phone Number</label>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="+91 98765 43210"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {/* TRAINER DROPDOWN */}
-            <div className="input-group">
-              <label>Choose Your Trainer</label>
-              <select 
-                name="trainer" 
-                required 
-                onChange={handleTrainerChange}
-                className="trainer-select"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  borderRadius: '8px',
-                  border: '1px solid #ddd',
-                  backgroundColor: 'white',
-                  marginTop: '5px',
-                  fontSize: '1rem'
-                }}
-              >
-                <option value="">Select a Trainer</option>
-                {trainers.map((trainer) => (
-                  <option key={trainer.uid} value={trainer.uid}>
-                    {trainer.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <button type="submit" className="login-btn" disabled={isLoading}>
-              {isLoading ? "Saving..." : "Complete Setup"}
+        {/* REJECTED COACH NOTICE */}
+        {rejectedTrainer && (
+          <div className="w-full max-w-2xl mb-6 p-5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-center space-y-2">
+            <IconAlertCircle size={24} className="mx-auto text-rose-400" />
+            <h4 className="text-sm font-bold text-white">Application Not Approved</h4>
+            <p className="text-xs text-slate-400">
+              Your application to join the coaching staff has been declined by gym management.
+            </p>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="mt-2 px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold"
+            >
+              Sign Out
             </button>
-          </form>
+          </div>
         )}
 
-      </div>
+        {/* SECTION TITLE */}
+        <div className="text-center mb-10 space-y-2">
+          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block mb-1">
+            Sign In Portal
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Choose Your Account
+          </h1>
+          <p className="text-slate-400 text-xs sm:text-sm max-w-md mx-auto">
+            Please select whether you are accessing as a gym member or as coaching staff.
+          </p>
+        </div>
+
+        {/* ==================== TWO ROLE CARDS ==================== */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
+          {/* CARD 1: MEMBER */}
+          <div className="relative rounded-2xl bg-[#0f172a]/90 border border-slate-800 hover:border-emerald-500/50 p-7 flex flex-col justify-between transition-all duration-300 group hover:shadow-2xl hover:shadow-emerald-500/10">
+            <div className="space-y-5">
+              {/* CARD TOP BADGE & ICON */}
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <IconUser size={24} />
+                </div>
+                <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  Member
+                </span>
+              </div>
+
+              {/* CARD TITLE & DESCRIPTION */}
+              <div>
+                <h2 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                  Member Portal
+                </h2>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Access your active subscription, scan digital QR passes, and check coach guidance.
+                </p>
+              </div>
+
+              {/* FEATURES BULLETS */}
+              <ul className="space-y-2 pt-2 border-t border-slate-800/80 text-xs text-slate-300">
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span>Personal Membership & Renewal Stats</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span>Instant Digital Gate QR Pass</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span>Assigned Certified Coach Details</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* ACTION BUTTON & FOOTER LINK */}
+            <div className="pt-6 space-y-3">
+              <button
+                type="button"
+                onClick={() => handleRoleLogin("member")}
+                disabled={loadingRole !== null}
+                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-all shadow-lg shadow-white/5 cursor-pointer disabled:opacity-50"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path
+                    fill="#EA4335"
+                    d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
+                  />
+                  <path
+                    fill="#4285F4"
+                    d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.6 14.8c-.3-.8-.4-1.8-.4-2.8 0-1 .2-2 .4-2.8L1.9 6.3C.7 8.7 0 11.3 0 14c0 2.7.7 5.3 1.9 7.7l3.7-2.9z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16C3.7 19.7 7.5 22.3 12 23z"
+                  />
+                </svg>
+                <span>
+                  {loadingRole === "member" ? "Signing In..." : "Sign In as Member"}
+                </span>
+              </button>
+
+              <p className="text-center text-[11px] text-slate-500">
+                New member?{" "}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setError("");
+                    setShowMemberModal(true);
+                  }}
+                  className="text-emerald-400 font-bold hover:underline cursor-pointer"
+                >
+                  Join as a Member
+                </button>
+              </p>
+            </div>
+          </div>
+
+          {/* CARD 2: TRAINER */}
+          <div className="relative rounded-2xl bg-[#0f172a]/90 border border-slate-800 hover:border-teal-500/50 p-7 flex flex-col justify-between transition-all duration-300 group hover:shadow-2xl hover:shadow-teal-500/10">
+            <div className="space-y-5">
+              {/* CARD TOP BADGE & ICON */}
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <IconUsers size={24} />
+                </div>
+                <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                  Trainer
+                </span>
+              </div>
+
+              {/* CARD TITLE & DESCRIPTION */}
+              <div>
+                <h2 className="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">
+                  Trainer Terminal
+                </h2>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Manage assigned fitness clients, review workout performance, and log coaching shifts.
+                </p>
+              </div>
+
+              {/* FEATURES BULLETS */}
+              <ul className="space-y-2 pt-2 border-t border-slate-800/80 text-xs text-slate-300">
+                <li className="flex items-center gap-2">
+                  <span className="text-teal-400 font-bold">✓</span>
+                  <span>Assigned Trainee Rosters & Goals</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-teal-400 font-bold">✓</span>
+                  <span>Duty Shift Check-In & Attendance</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-teal-400 font-bold">✓</span>
+                  <span>Workout Logs & Performance Feedback</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* ACTION BUTTON & FOOTER LINK */}
+            <div className="pt-6 space-y-3">
+              <button
+                type="button"
+                onClick={() => handleRoleLogin("trainer")}
+                disabled={loadingRole !== null}
+                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-all shadow-lg shadow-teal-500/10 cursor-pointer disabled:opacity-50"
+              >
+                <IconShield size={16} />
+                <span>
+                  {loadingRole === "trainer" ? "Verifying..." : "Sign In as Trainer"}
+                </span>
+              </button>
+
+              <p className="text-center text-[11px] text-slate-500">
+                Want to coach here?{" "}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setError("");
+                    setShowTrainerModal(true);
+                  }}
+                  className="text-teal-400 font-bold hover:underline cursor-pointer"
+                >
+                  Apply as Coach
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* ==================== FOOTER ==================== */}
+      <footer className="border-t border-slate-800/60 py-6 px-6 text-center text-xs text-slate-500">
+        <p>© 2026 Iconic Gym Karnal · Professional Fitness Club Management ERP</p>
+      </footer>
+
+      {/* ==================== MODAL: JOIN AS A MEMBER ==================== */}
+      {showMemberModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-lg p-6 sm:p-7 shadow-2xl space-y-5 relative max-h-[90vh] overflow-y-auto">
+            {/* CLOSE BUTTON */}
+            <button
+              type="button"
+              onClick={() => setShowMemberModal(false)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              <IconX size={20} />
+            </button>
+
+            <div>
+              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
+                <IconUser size={16} />
+                <span>Member Registration</span>
+              </div>
+              <h3 className="text-xl font-bold text-white">Join as a Member</h3>
+              <p className="text-xs text-slate-400">
+                Select your subscription tier and assigned personal coach.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Rahul Sharma"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="gym-input"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Contact Phone
+                </label>
+                <input
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="gym-input"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Select Membership Tier
+                </label>
+                <div className="grid grid-cols-3 gap-2.5">
+                  {GYM_PLANS.map((plan) => (
+                    <button
+                      key={plan.id}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, selectedPlan: plan })}
+                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                        formData.selectedPlan.id === plan.id
+                          ? "bg-emerald-500/10 border-emerald-500 text-white"
+                          : "bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700"
+                      }`}
+                    >
+                      <span className="block text-[10px] font-bold text-emerald-400 uppercase">
+                        {plan.durationMonths} Mo
+                      </span>
+                      <span className="block text-sm font-bold text-white mt-0.5">
+                        ₹{plan.price}
+                      </span>
+                      <span className="block text-[10px] text-slate-500 mt-1 truncate">
+                        {plan.tier}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Assigned Coach (Verified Trainers)
+                </label>
+                <select
+                  value={formData.assignedTrainer?.uid || ""}
+                  onChange={(e) => {
+                    const trainer = trainers.find((t) => t.uid === e.target.value);
+                    setFormData({ ...formData, assignedTrainer: trainer || null });
+                  }}
+                  className="gym-select"
+                >
+                  <option value="">General Floor Coach (Default)</option>
+                  {trainers.map((t) => (
+                    <option key={t.uid} value={t.uid}>
+                      {t.name} — {t.specialization}
+                    </option>
+                  ))}
+                </select>
+                {trainers.length === 0 && (
+                  <p className="text-[11px] text-amber-400 mt-1 flex items-center gap-1">
+                    <IconAlertCircle size={12} />
+                    <span>No personal coaches currently listed. General coach assigned.</span>
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => submitRegistration("member")}
+                disabled={submitting || !formData.name || !formData.phone}
+                className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 mt-2 shadow-md shadow-emerald-500/20 cursor-pointer"
+              >
+                {submitting ? "Processing..." : "Complete Registration & Activate"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==================== MODAL: APPLY AS COACH ==================== */}
+      {showTrainerModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-lg p-6 sm:p-7 shadow-2xl space-y-5 relative max-h-[90vh] overflow-y-auto">
+            {/* CLOSE BUTTON */}
+            <button
+              type="button"
+              onClick={() => setShowTrainerModal(false)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              <IconX size={20} />
+            </button>
+
+            <div>
+              <div className="flex items-center gap-2 text-teal-400 text-xs font-bold uppercase tracking-wider mb-1">
+                <IconShield size={16} />
+                <span>Coach Verification</span>
+              </div>
+              <h3 className="text-xl font-bold text-white">Apply as Coaching Staff</h3>
+              <p className="text-xs text-slate-400">
+                Staff profiles enter a verification gate pending management approval.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Coach Full Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Vikram Singh"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="gym-input"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Contact Phone
+                </label>
+                <input
+                  type="tel"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="gym-input"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Primary Specialization
+                </label>
+                <select
+                  value={formData.specialization}
+                  onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
+                  className="gym-select"
+                >
+                  <option value="Strength & Conditioning">Strength & Conditioning</option>
+                  <option value="Bodybuilding & Hypertrophy">Bodybuilding & Hypertrophy</option>
+                  <option value="CrossFit & Functional Training">CrossFit & Functional Training</option>
+                  <option value="Fat Loss & Endurance">Fat Loss & Endurance</option>
+                  <option value="Rehabilitation & Mobility">Rehabilitation & Mobility</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                  Certifications & Experience
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. ACE Certified, 4 years exp."
+                  value={formData.experience}
+                  onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                  className="gym-input"
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => submitRegistration("trainer")}
+                disabled={submitting || !formData.name || !formData.phone}
+                className="w-full py-3.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 mt-2 shadow-md shadow-teal-500/20 cursor-pointer"
+              >
+                {submitting ? "Submitting..." : "Submit Trainer Application"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
