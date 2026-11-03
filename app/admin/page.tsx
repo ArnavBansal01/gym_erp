@@ -129,7 +129,7 @@ export default function AdminPortal() {
         facility: "Iconic Gym Karnal - Entrance Gate",
         action: "check-in",
       }),
-      { width: 400, margin: 2, color: { dark: "#0f172a", light: "#ffffff" } }
+      { width: 400, margin: 2, color: { dark: "#141414", light: "#ffffff" } }
     ).then((url) => setEntrancePosterQr(url));
   }, []);
 
@@ -650,19 +650,19 @@ export default function AdminPortal() {
   // LOGIN SCREEN
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#090d16] flex items-center justify-center p-4">
-        <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-8 w-full max-w-md shadow-2xl space-y-6">
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-4">
+        <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-8 w-full max-w-md shadow-md space-y-6">
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white mx-auto shadow-lg shadow-amber-500/20">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF5A1F] to-[#FF5A1F] flex items-center justify-center text-[#141414] mx-auto shadow-md shadow-[#141414]/10">
               <IconShield size={24} />
             </div>
-            <h2 className="text-2xl font-extrabold text-white">Iconic Gym ERP</h2>
-            <p className="text-xs text-slate-400">Owner & Administrator Management Terminal</p>
+            <h2 className="text-3xl font-bold text-[#141414] font-display">Iconic Gym ERP</h2>
+            <p className="text-xs text-[#6B6760]">Owner & Administrator Management Terminal</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1.5">
                 Admin Username
               </label>
               <input
@@ -670,13 +670,13 @@ export default function AdminPortal() {
                 value={creds.username}
                 onChange={(e) => setCreds({ ...creds, username: e.target.value })}
                 placeholder="admin"
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
+                className="w-full bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-4 py-3 text-sm text-[#141414] focus:outline-none focus:border-[#FF5A1F] transition-colors"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1.5">
                 Password
               </label>
               <input
@@ -684,13 +684,13 @@ export default function AdminPortal() {
                 value={creds.password}
                 onChange={(e) => setCreds({ ...creds, password: e.target.value })}
                 placeholder="••••••••"
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
+                className="w-full bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-4 py-3 text-sm text-[#141414] focus:outline-none focus:border-[#FF5A1F] transition-colors"
                 required
               />
             </div>
 
             {authError && (
-              <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
+              <div className="p-3 rounded-lg bg-[#D93636]/10 border border-[#D93636]/30 text-[#C42B2B] text-xs flex items-center gap-2">
                 <IconAlertCircle size={16} />
                 <span>{authError}</span>
               </div>
@@ -698,7 +698,7 @@ export default function AdminPortal() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
+              className="w-full py-3 rounded-xl bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all shadow-md shadow-[#141414]/10"
             >
               Sign In to ERP
             </button>
@@ -706,7 +706,7 @@ export default function AdminPortal() {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="w-full py-2 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+              className="w-full py-2 text-xs text-[#7A756D] hover:text-[#4A4640] transition-colors"
             >
               Return to Member Portal
             </button>
@@ -717,18 +717,18 @@ export default function AdminPortal() {
   }
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#141414] flex flex-col">
       <div id="admin-hidden-file-reader" style={{ display: "none" }} />
       {/* TOP HEADER */}
-      <header className="border-b border-slate-800 bg-[#0f172a]/90 backdrop-blur-md sticky top-0 z-40 px-6 py-4">
+      <header className="border-b border-[#ECE7E0] bg-[#FFFFFF]/90 backdrop-blur-md sticky top-0 z-40 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-slate-950 shadow-lg shadow-amber-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF5A1F] to-[#FF5A1F] flex items-center justify-center text-[#141414] shadow-md shadow-[#141414]/10">
               <IconShield size={22} />
             </div>
             <div>
-              <span className="font-extrabold tracking-wider text-base uppercase text-white">Iconic Gym Karnal</span>
-              <span className="hidden sm:inline-block ml-2 px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <span className="font-bold tracking-wide text-base text-[#141414]">Iconic Gym Karnal</span>
+              <span className="hidden sm:inline-block ml-2 px-2 py-0.5 rounded text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                 ERP Admin
               </span>
             </div>
@@ -738,7 +738,7 @@ export default function AdminPortal() {
             <button
               onClick={handleMigrateTrainers}
               disabled={isSyncing}
-              className="hidden sm:flex px-3 py-1.5 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-semibold items-center gap-1.5 transition-colors disabled:opacity-50"
+              className="hidden sm:flex px-3 py-1.5 rounded-lg border border-[#E0D9CF] hover:bg-[#F1EDE7] text-[#4A4640] text-xs font-semibold items-center gap-1.5 transition-colors disabled:opacity-50"
               title="Synchronize legacy records into unified users collection"
             >
               <IconRefresh size={14} className={isSyncing ? "animate-spin" : ""} />
@@ -747,14 +747,14 @@ export default function AdminPortal() {
 
             <button
               onClick={() => router.push("/")}
-              className="px-3 py-1.5 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-300 text-xs font-semibold transition-colors"
+              className="px-3 py-1.5 rounded-lg border border-[#E0D9CF] hover:bg-[#F1EDE7] text-[#4A4640] text-xs font-semibold transition-colors"
             >
               User Portal
             </button>
 
             <button
               onClick={handleLogout}
-              className="p-2 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
+              className="p-2 rounded-lg border border-[#E0D9CF] hover:bg-[#F1EDE7] text-[#6B6760] hover:text-[#2A2724] transition-colors"
               title="Sign Out"
             >
               <IconLogOut size={18} />
@@ -767,23 +767,23 @@ export default function AdminPortal() {
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 flex-1 flex flex-col gap-6">
         {/* PENDING TRAINER ALERT BANNER */}
         {pendingTrainers.length > 0 && (
-          <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-[#E0A100]/10 border border-[#E0A100]/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-[#E0A100]/20 text-[#8A6100] flex items-center justify-center shrink-0">
                 <IconAlertCircle size={22} />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-amber-300">
+                <h4 className="text-sm font-bold text-[#8A6100]">
                   {pendingTrainers.length} Trainer Application(s) Awaiting Review
                 </h4>
-                <p className="text-xs text-amber-200/70 mt-0.5">
+                <p className="text-xs text-[#8A6100]/70 mt-0.5">
                   Held in pending gate to prevent unauthorized access to trainer dashboards.
                 </p>
               </div>
             </div>
             <button
               onClick={() => setActiveTab("trainers_pending")}
-              className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all self-start sm:self-auto shadow-md shadow-amber-500/20"
+              className="px-4 py-2 rounded-lg bg-[#E0A100] hover:bg-[#E0A100] text-[#141414] font-bold text-xs tracking-wide transition-all self-start sm:self-auto shadow-md shadow-[#141414]/10"
             >
               Review Applications
             </button>
@@ -791,13 +791,13 @@ export default function AdminPortal() {
         )}
 
         {/* TABS HEADER */}
-        <div className="flex flex-wrap items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 self-start">
+        <div className="flex flex-wrap items-center gap-2 bg-white/90 p-1.5 rounded-xl border border-[#ECE7E0] self-start">
           <button
             onClick={() => setActiveTab("overview")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
               activeTab === "overview"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#141414] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Financial Overview
@@ -806,14 +806,14 @@ export default function AdminPortal() {
             onClick={() => setActiveTab("attendance")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${
               activeTab === "attendance"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#141414] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             <span>Live Attendance</span>
             {membersList.filter((m) => m.currentStatus === "IN").length +
               approvedTrainers.filter((t) => t.dutyStatus === "IN").length > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950 animate-pulse">
+              <span className="px-1.5 py-0.5 rounded-full text-[11px] font-bold bg-[#FF5A1F] text-[#141414] animate-pulse">
                 {membersList.filter((m) => m.currentStatus === "IN").length +
                   approvedTrainers.filter((t) => t.dutyStatus === "IN").length}{" "}
                 Inside
@@ -824,8 +824,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab("members")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
               activeTab === "members"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#141414] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Members ({membersList.length})
@@ -835,13 +835,13 @@ export default function AdminPortal() {
             onClick={() => setActiveTab("trainers_pending")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${
               activeTab === "trainers_pending"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#141414] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             <span>Trainer Approvals</span>
             {pendingTrainers.length > 0 && (
-              <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950">
+              <span className="px-1.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E0A100] text-[#141414]">
                 {pendingTrainers.length}
               </span>
             )}
@@ -850,8 +850,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab("trainers_approved")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
               activeTab === "trainers_approved"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#141414] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Approved Staff ({approvedTrainers.length})
@@ -860,8 +860,8 @@ export default function AdminPortal() {
             onClick={() => setActiveTab("expenses")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
               activeTab === "expenses"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#141414] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Expenses Ledger
@@ -872,61 +872,61 @@ export default function AdminPortal() {
         {activeTab === "overview" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-2">
-                <span className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+              <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-2">
+                <span className="text-xs font-semibold text-[#6B6760] tracking-wide">
                   Total Membership Revenue
                 </span>
-                <p className="text-3xl font-extrabold text-emerald-400">
+                <p className="text-4xl font-bold text-[#17803F] font-display tabular-nums">
                   ₹{totalRevenue.toLocaleString()}
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[#6B6760]">
                   Across {membersList.length} enrolled gym members
                 </p>
               </div>
 
-              <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-2">
-                <span className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+              <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-2">
+                <span className="text-xs font-semibold text-[#6B6760] tracking-wide">
                   Operational Expenses
                 </span>
-                <p className="text-3xl font-extrabold text-rose-400">
+                <p className="text-4xl font-bold text-[#C42B2B] font-display tabular-nums">
                   ₹{totalExpense.toLocaleString()}
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[#6B6760]">
                   Recorded utility and maintenance costs
                 </p>
               </div>
 
-              <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-2">
-                <span className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+              <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-2">
+                <span className="text-xs font-semibold text-[#6B6760] tracking-wide">
                   Net Operating Profit
                 </span>
                 <p
-                  className={`text-3xl font-extrabold ${
-                    totalRevenue - totalExpense >= 0 ? "text-emerald-400" : "text-rose-400"
+                  className={`text-4xl font-bold font-display tabular-nums ${
+                    totalRevenue - totalExpense >= 0 ? "text-[#17803F]" : "text-[#C42B2B]"
                   }`}
                 >
                   ₹{(totalRevenue - totalExpense).toLocaleString()}
                 </p>
-                <p className="text-xs text-slate-400">Net operating balance</p>
+                <p className="text-xs text-[#6B6760]">Net operating balance</p>
               </div>
             </div>
 
             {/* MEMBERSHIP HEALTH BREAKDOWN */}
-            <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-4">
-              <h3 className="text-base font-bold text-white">Membership Health Breakdown</h3>
+            <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-4">
+              <h3 className="text-lg font-bold text-[#141414] font-display">Membership Health Breakdown</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div
                   onClick={() => {
                     setMemberFilter("ACTIVE");
                     setActiveTab("members");
                   }}
-                  className="bg-slate-900/80 p-4 rounded-xl border border-slate-800 cursor-pointer hover:border-emerald-500/50 transition-all"
+                  className="bg-white/80 p-4 rounded-xl border border-[#ECE7E0] cursor-pointer hover:border-[#FF5A1F]/50 transition-all"
                 >
-                  <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#17803F] tracking-wide">
                     Active Members
                   </span>
-                  <p className="text-2xl font-extrabold text-white mt-1">{activeCount}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">Facility access enabled</p>
+                  <p className="text-3xl font-bold text-[#141414] mt-1 font-display tabular-nums">{activeCount}</p>
+                  <p className="text-xs text-[#6B6760] mt-0.5">Facility access enabled</p>
                 </div>
 
                 <div
@@ -934,13 +934,13 @@ export default function AdminPortal() {
                     setMemberFilter("EXPIRING_SOON");
                     setActiveTab("members");
                   }}
-                  className="bg-slate-900/80 p-4 rounded-xl border border-slate-800 cursor-pointer hover:border-amber-500/50 transition-all"
+                  className="bg-white/80 p-4 rounded-xl border border-[#ECE7E0] cursor-pointer hover:border-[#E0A100]/50 transition-all"
                 >
-                  <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#8A6100] tracking-wide">
                     Expiring Soon (&le; 7 Days)
                   </span>
-                  <p className="text-2xl font-extrabold text-white mt-1">{expiringSoonCount}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">Due for renewal</p>
+                  <p className="text-3xl font-bold text-[#141414] mt-1 font-display tabular-nums">{expiringSoonCount}</p>
+                  <p className="text-xs text-[#6B6760] mt-0.5">Due for renewal</p>
                 </div>
 
                 <div
@@ -948,13 +948,13 @@ export default function AdminPortal() {
                     setMemberFilter("EXPIRED");
                     setActiveTab("members");
                   }}
-                  className="bg-slate-900/80 p-4 rounded-xl border border-slate-800 cursor-pointer hover:border-rose-500/50 transition-all"
+                  className="bg-white/80 p-4 rounded-xl border border-[#ECE7E0] cursor-pointer hover:border-[#D93636]/50 transition-all"
                 >
-                  <span className="text-xs font-semibold text-rose-400 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#C42B2B] tracking-wide">
                     Expired Members
                   </span>
-                  <p className="text-2xl font-extrabold text-white mt-1">{expiredCount}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">Check-in access blocked</p>
+                  <p className="text-3xl font-bold text-[#141414] mt-1 font-display tabular-nums">{expiredCount}</p>
+                  <p className="text-xs text-[#6B6760] mt-0.5">Check-in access blocked</p>
                 </div>
               </div>
             </div>
@@ -965,15 +965,15 @@ export default function AdminPortal() {
         {activeTab === "attendance" && (
           <div className="space-y-6">
             {/* GATE ACTION CONTROLS & TERMINAL */}
-            <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-4 sm:p-6 space-y-4">
+            <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-4 sm:p-6 space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={() => setShowReceptionScanner(!showReceptionScanner)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-md ${
                       showReceptionScanner
-                        ? "bg-rose-500 hover:bg-rose-400 text-white shadow-rose-500/20"
+                        ? "bg-[#D93636] hover:bg-[#E04B4B] text-white shadow-[#141414]/10"
                         : "btn-emerald"
                     }`}
                   >
@@ -1008,30 +1008,30 @@ export default function AdminPortal() {
                   </button>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="flex items-center gap-2 text-xs text-[#6B6760]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse" />
                   <span>Front Desk Reader Ready</span>
                 </div>
               </div>
 
               {/* RECEPTION CAMERA SCANNER VIEWPORT */}
               {showReceptionScanner && (
-                <div className="mt-4 pt-4 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div className="mt-4 pt-4 border-t border-[#ECE7E0] grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs uppercase font-extrabold tracking-wider text-teal-400">
+                      <span className="text-xs font-bold tracking-wide text-[#C93E0B]">
                         Front Desk Live Scanner
                       </span>
-                      <span className="text-[11px] text-slate-400">Point at member&apos;s &ldquo;My QR Pass&rdquo;</span>
+                      <span className="text-[11px] text-[#6B6760]">Point at member&apos;s &ldquo;My QR Pass&rdquo;</span>
                     </div>
 
-                    <div className="relative rounded-2xl overflow-hidden bg-black border border-slate-800 min-h-[260px] flex items-center justify-center shadow-inner">
+                    <div className="relative rounded-2xl overflow-hidden bg-[#141414] border border-[#ECE7E0] min-h-[260px] flex items-center justify-center shadow-inner">
                       <div id="admin-reception-scanner" className="w-full" style={{ opacity: scanning ? 0.3 : 1 }} />
                       {!scannerActive && (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-slate-950/80 text-slate-400 p-4 text-center">
-                          <IconRefresh className="animate-spin text-emerald-400" size={24} />
-                          <p className="text-xs font-semibold text-slate-200">Activating Reception Camera...</p>
-                          <p className="text-[11px] text-slate-400">Please allow camera permissions if prompted.</p>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#141414]/60 text-[#6B6760] p-4 text-center">
+                          <IconRefresh className="animate-spin text-[#C93E0B]" size={24} />
+                          <p className="text-xs font-semibold text-[#2A2724]">Activating Reception Camera...</p>
+                          <p className="text-[11px] text-[#6B6760]">Please allow camera permissions if prompted.</p>
                         </div>
                       )}
                     </div>
@@ -1039,7 +1039,7 @@ export default function AdminPortal() {
 
                   {/* SCANNER FEEDBACK & MANUAL ENTRY */}
                   <div className="space-y-4">
-                    <span className="text-xs uppercase font-extrabold tracking-wider text-slate-400 block">
+                    <span className="text-xs font-bold tracking-wide text-[#6B6760] block">
                       Scan Status & Verification
                     </span>
 
@@ -1047,16 +1047,16 @@ export default function AdminPortal() {
                       <div
                         className={`p-4 rounded-xl border space-y-2 ${
                           scannerFeedback.type === "success"
-                            ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                            ? "bg-[#1F9D55]/10 border-[#1F9D55]/30 text-[#17803F]"
                             : scannerFeedback.type === "error"
-                            ? "bg-rose-500/10 border-rose-500/30 text-rose-300"
-                            : "bg-slate-900 border-slate-700 text-slate-300"
+                            ? "bg-[#D93636]/10 border-[#D93636]/30 text-[#C42B2B]"
+                            : "bg-[#F7F4EF] border-[#E0D9CF] text-[#4A4640]"
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          {scannerFeedback.type === "success" && <IconCheck size={18} className="text-emerald-400 shrink-0" />}
-                          {scannerFeedback.type === "error" && <IconAlertCircle size={18} className="text-rose-400 shrink-0" />}
-                          {scannerFeedback.type === "info" && <IconRefresh size={18} className="animate-spin text-teal-400 shrink-0" />}
+                          {scannerFeedback.type === "success" && <IconCheck size={18} className="text-[#17803F] shrink-0" />}
+                          {scannerFeedback.type === "error" && <IconAlertCircle size={18} className="text-[#C42B2B] shrink-0" />}
+                          {scannerFeedback.type === "info" && <IconRefresh size={18} className="animate-spin text-[#C93E0B] shrink-0" />}
                           <strong className="text-sm font-bold">{scannerFeedback.title}</strong>
                         </div>
                         <p className="text-xs leading-relaxed">{scannerFeedback.message}</p>
@@ -1065,19 +1065,19 @@ export default function AdminPortal() {
                           <button
                             type="button"
                             onClick={startReceptionScanner}
-                            className="mt-3 w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-amber-500/20"
+                            className="mt-3 w-full py-2 bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs rounded-lg tracking-wide transition-all cursor-pointer shadow-md shadow-[#141414]/10"
                           >
                             Retry Camera Permission
                           </button>
                         )}
 
                         {scannerFeedback.user && (
-                          <div className="pt-2 border-t border-slate-800/80 text-xs space-y-1">
+                          <div className="pt-2 border-t border-[#ECE7E0]/80 text-xs space-y-1">
                             <p><strong>Name:</strong> {scannerFeedback.user.name}</p>
                             {scannerFeedback.user.membership && (
                               <p>
                                 <strong>Plan:</strong> {scannerFeedback.user.membership.planName} · Status:{" "}
-                                <span className={scannerFeedback.user.membership.status === "ACTIVE" ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>
+                                <span className={scannerFeedback.user.membership.status === "ACTIVE" ? "text-[#17803F] font-bold" : "text-[#C42B2B] font-bold"}>
                                   {scannerFeedback.user.membership.status}
                                 </span>
                               </p>
@@ -1089,7 +1089,7 @@ export default function AdminPortal() {
                                   setRenewModalMember(scannerFeedback.user);
                                   setShowReceptionScanner(false);
                                 }}
-                                className="mt-2 w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg uppercase tracking-wider transition-all"
+                                className="mt-2 w-full py-2 bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs rounded-lg tracking-wide transition-all"
                               >
                                 Renew Member Subscription Now
                               </button>
@@ -1098,18 +1098,18 @@ export default function AdminPortal() {
                         )}
                       </div>
                     ) : (
-                      <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 leading-relaxed">
+                      <div className="p-4 rounded-xl bg-[#F7F4EF]/60 border border-[#ECE7E0] text-xs text-[#6B6760] leading-relaxed">
                         Ready to scan. Ask the member to open <strong>&ldquo;My QR Pass&rdquo;</strong> on their phone and show it to this camera. The system will verify their membership status and log check-in/check-out automatically.
                       </div>
                     )}
 
                     {/* MANUAL CHECK-IN & INSTANT MEMBER SEARCH */}
-                    <div className="pt-3 border-t border-slate-800 space-y-2">
+                    <div className="pt-3 border-t border-[#ECE7E0] space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-slate-300 block">
+                        <span className="text-xs font-semibold text-[#4A4640] block">
                           Instant Member Search & Check-In
                         </span>
-                        <span className="text-[10px] text-slate-400">Search name, phone, or ID</span>
+                        <span className="text-[11px] text-[#6B6760]">Search name, phone, or ID</span>
                       </div>
 
                       <form
@@ -1128,7 +1128,7 @@ export default function AdminPortal() {
                             placeholder="Type Member Name, Phone (+91...), Email, or UID..."
                             value={manualScanInput}
                             onChange={(e) => setManualScanInput(e.target.value)}
-                            className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                            className="flex-1 bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-3 py-2 text-xs text-[#141414] focus:outline-none focus:border-[#FF5A1F]"
                           />
                           <button
                             type="submit"
@@ -1141,7 +1141,7 @@ export default function AdminPortal() {
 
                         {/* INSTANT LIVE AUTOCOMPLETE SUGGESTIONS */}
                         {manualScanInput.trim().length >= 2 && (
-                          <div className="max-h-48 overflow-y-auto space-y-1 bg-slate-950/90 p-2 rounded-xl border border-slate-800 shadow-xl">
+                          <div className="max-h-48 overflow-y-auto space-y-1 bg-[#141414]/60 p-2 rounded-xl border border-[#ECE7E0] shadow-md">
                             {membersList
                               .filter((m) =>
                                 (m.name || "").toLowerCase().includes(manualScanInput.toLowerCase()) ||
@@ -1152,13 +1152,13 @@ export default function AdminPortal() {
                               .map((m) => (
                                 <div
                                   key={m.id}
-                                  className="p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 flex items-center justify-between text-xs transition-colors"
+                                  className="p-2 rounded-lg bg-white/90 hover:bg-[#F1EDE7] flex items-center justify-between text-xs transition-colors"
                                 >
                                   <div>
-                                    <strong className="text-white block">{m.name}</strong>
-                                    <span className="text-[10px] text-slate-400">
+                                    <strong className="text-[#141414] block">{m.name}</strong>
+                                    <span className="text-[11px] text-[#6B6760]">
                                       {m.phone} · {m.membership?.planName} · Status:{" "}
-                                      <span className={m.membership?.status === "ACTIVE" ? "text-emerald-400" : "text-rose-400"}>
+                                      <span className={m.membership?.status === "ACTIVE" ? "text-[#17803F]" : "text-[#C42B2B]"}>
                                         {m.membership?.status}
                                       </span>
                                     </span>
@@ -1170,10 +1170,10 @@ export default function AdminPortal() {
                                       handleExecuteScan(m.id);
                                       setManualScanInput("");
                                     }}
-                                    className={`px-3 py-1 rounded-md text-[10px] font-bold uppercase transition-all cursor-pointer ${
+                                    className={`px-3 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
                                       m.currentStatus === "IN"
-                                        ? "bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white"
-                                        : "bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500 hover:text-white"
+                                        ? "bg-[#D93636]/20 text-[#C42B2B] hover:bg-[#C42B2B] hover:text-[#141414]"
+                                        : "bg-[#FF5A1F]/20 text-[#C93E0B] hover:bg-[#FF5A1F] hover:text-[#141414]"
                                     }`}
                                   >
                                     {m.currentStatus === "IN" ? "Check Out" : "Check In"}
@@ -1185,7 +1185,7 @@ export default function AdminPortal() {
                               (m.phone || "").includes(manualScanInput) ||
                               (m.email || "").toLowerCase().includes(manualScanInput.toLowerCase())
                             ).length === 0 && (
-                              <p className="text-[11px] text-slate-500 text-center py-2">
+                              <p className="text-[11px] text-[#7A756D] text-center py-2">
                                 No local matches. Press &ldquo;Check In/Out&rdquo; to search backend database.
                               </p>
                             )}
@@ -1200,52 +1200,52 @@ export default function AdminPortal() {
 
             {/* LIVE FACILITY COUNTERS */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-2">
+              <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+                  <span className="text-xs font-semibold text-[#6B6760] tracking-wide">
                     Members Inside Now
                   </span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1F9D55] animate-ping" />
                 </div>
-                <p className="text-3xl font-extrabold text-emerald-400">
+                <p className="text-4xl font-bold text-[#17803F] font-display tabular-nums">
                   {membersList.filter((m) => m.currentStatus === "IN").length}
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[#6B6760]">
                   Actively on the gym floor
                 </p>
               </div>
 
-              <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-2">
-                <span className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+              <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-2">
+                <span className="text-xs font-semibold text-[#6B6760] tracking-wide">
                   Coaching Staff On Duty
                 </span>
-                <p className="text-3xl font-extrabold text-teal-400">
+                <p className="text-4xl font-bold text-[#17803F] font-display tabular-nums">
                   {approvedTrainers.filter((t) => t.dutyStatus === "IN").length}
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[#6B6760]">
                   Personal trainers clocked in
                 </p>
               </div>
 
-              <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-2">
-                <span className="text-xs uppercase font-semibold text-slate-400 tracking-wider">
+              <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-2">
+                <span className="text-xs font-semibold text-[#6B6760] tracking-wide">
                   Total Gate Logs
                 </span>
-                <p className="text-3xl font-extrabold text-white">
+                <p className="text-4xl font-bold text-[#141414] font-display tabular-nums">
                   {attendanceLogs.length}
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[#6B6760]">
                   Turnstile check-in & check-out events
                 </p>
               </div>
             </div>
 
             {/* CURRENTLY INSIDE ROSTER */}
-            <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-4">
+            <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-base font-bold text-white">Currently Inside Facility</h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <h3 className="text-lg font-bold text-[#141414] font-display">Currently Inside Facility</h3>
+                  <p className="text-xs text-[#6B6760] mt-0.5">
                     Live roster of individuals who have checked in through the turnstile.
                   </p>
                 </div>
@@ -1260,9 +1260,9 @@ export default function AdminPortal() {
 
               {membersList.filter((m) => m.currentStatus === "IN").length === 0 &&
               approvedTrainers.filter((t) => t.dutyStatus === "IN").length === 0 ? (
-                <div className="p-8 text-center text-slate-400">
-                  <p className="font-semibold text-slate-300">Facility Currently Empty</p>
-                  <p className="text-xs text-slate-500 mt-1">
+                <div className="p-8 text-center text-[#6B6760]">
+                  <p className="font-semibold text-[#4A4640]">Facility Currently Empty</p>
+                  <p className="text-xs text-[#7A756D] mt-1">
                     No members or coaching staff have active check-ins logged right now.
                   </p>
                 </div>
@@ -1273,21 +1273,21 @@ export default function AdminPortal() {
                     .map((m) => (
                       <div
                         key={m.id}
-                        className="p-3.5 rounded-xl bg-slate-900 border border-emerald-500/30 flex items-center justify-between"
+                        className="p-3.5 rounded-xl bg-[#F7F4EF] border border-[#FF5A1F]/30 flex items-center justify-between"
                       >
                         <div>
-                          <strong className="text-xs text-white block">{m.name}</strong>
-                          <span className="text-[11px] text-emerald-400">Member ({m.membership.planName})</span>
+                          <strong className="text-xs text-[#141414] block">{m.name}</strong>
+                          <span className="text-[11px] text-[#C93E0B]">Member ({m.membership.planName})</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                          <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#1F9D55]/10 text-[#17803F] border border-[#1F9D55]/30">
                             INSIDE
                           </span>
                           <button
                             type="button"
                             onClick={() => handleDirectCheckToggle(m.id, 'IN')}
                             disabled={actionLoading === `status-${m.id}`}
-                            className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-all border border-rose-500/30 cursor-pointer"
+                            className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#D93636]/20 text-[#C42B2B] hover:bg-[#C42B2B] hover:text-[#141414] transition-all border border-[#D93636]/30 cursor-pointer"
                           >
                             {actionLoading === `status-${m.id}` ? "..." : "Check Out"}
                           </button>
@@ -1300,21 +1300,21 @@ export default function AdminPortal() {
                     .map((t) => (
                       <div
                         key={t.id}
-                        className="p-3.5 rounded-xl bg-slate-900 border border-teal-500/30 flex items-center justify-between"
+                        className="p-3.5 rounded-xl bg-[#F7F4EF] border border-[#FF5A1F]/30 flex items-center justify-between"
                       >
                         <div>
-                          <strong className="text-xs text-white block">{t.name}</strong>
-                          <span className="text-[11px] text-teal-400">Coach ({t.specialization})</span>
+                          <strong className="text-xs text-[#141414] block">{t.name}</strong>
+                          <span className="text-[11px] text-[#C93E0B]">Coach ({t.specialization})</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/10 text-teal-400 border border-teal-500/30">
+                          <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/30">
                             ON DUTY
                           </span>
                           <button
                             type="button"
                             onClick={() => handleDirectCheckToggle(t.id, 'IN')}
                             disabled={actionLoading === `status-${t.id}`}
-                            className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-all border border-rose-500/30 cursor-pointer"
+                            className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#D93636]/20 text-[#C42B2B] hover:bg-[#C42B2B] hover:text-[#141414] transition-all border border-[#D93636]/30 cursor-pointer"
                           >
                             {actionLoading === `status-${t.id}` ? "..." : "Clock Out"}
                           </button>
@@ -1326,28 +1326,28 @@ export default function AdminPortal() {
             </div>
 
             {/* MASTER GATE LOGS FEED */}
-            <div className="bg-[#0f172a] rounded-2xl border border-slate-800 overflow-hidden p-6 space-y-4">
+            <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] overflow-hidden p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-base font-bold text-white">Master Gate Activity Feed</h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <h3 className="text-lg font-bold text-[#141414] font-display">Master Gate Activity Feed</h3>
+                  <p className="text-xs text-[#6B6760] mt-0.5">
                     Real-time turnstile event logs recorded via QR terminals.
                   </p>
                 </div>
-                <span className="text-xs text-slate-400">{attendanceLogs.length} Events</span>
+                <span className="text-xs text-[#6B6760]">{attendanceLogs.length} Events</span>
               </div>
 
               {attendanceLogs.length === 0 ? (
-                <div className="p-8 text-center text-slate-400">
-                  <p className="font-semibold text-slate-300">No attendance activity recorded yet</p>
-                  <p className="text-xs text-slate-500 mt-1">
+                <div className="p-8 text-center text-[#6B6760]">
+                  <p className="font-semibold text-[#4A4640]">No attendance activity recorded yet</p>
+                  <p className="text-xs text-[#7A756D] mt-1">
                     When members or trainers check in/out, records appear here automatically.
                   </p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs sm:text-sm">
-                    <thead className="bg-slate-900/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
+                    <thead className="bg-white/80 text-[#6B6760] text-[11px] font-semibold tracking-wide border-b border-[#ECE7E0]">
                       <tr>
                         <th className="py-3 px-4">User</th>
                         <th className="py-3 px-4">Role</th>
@@ -1356,19 +1356,19 @@ export default function AdminPortal() {
                         <th className="py-3 px-4 text-right">Timestamp</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/80 text-slate-200">
+                    <tbody className="divide-y divide-[#ECE7E0]/80 text-[#2A2724]">
                       {attendanceLogs.map((log) => (
-                        <tr key={log.id} className="hover:bg-slate-800/40 transition-colors">
+                        <tr key={log.id} className="hover:bg-[#F1EDE7]/40 transition-colors">
                           <td className="py-3 px-4">
-                            <strong className="text-white block">{log.userName}</strong>
-                            <span className="text-[11px] text-slate-400">{log.userEmail}</span>
+                            <strong className="text-[#141414] block">{log.userName}</strong>
+                            <span className="text-[11px] text-[#6B6760]">{log.userEmail}</span>
                           </td>
                           <td className="py-3 px-4">
                             <span
-                              className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                              className={`px-2 py-0.5 rounded text-[11px] font-bold tracking-wide ${
                                 log.role === "TRAINER"
-                                  ? "bg-teal-500/10 text-teal-400 border border-teal-500/30"
-                                  : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                                  ? "bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/30"
+                                  : "bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/30"
                               }`}
                             >
                               {log.role}
@@ -1376,19 +1376,19 @@ export default function AdminPortal() {
                           </td>
                           <td className="py-3 px-4">
                             <span
-                              className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                              className={`px-2 py-0.5 rounded text-[11px] font-bold tracking-wide ${
                                 log.type === "CHECK-IN"
-                                  ? "bg-emerald-500 text-slate-950"
-                                  : "bg-slate-800 text-slate-300 border border-slate-700"
+                                  ? "bg-[#FF5A1F] text-[#141414]"
+                                  : "bg-[#F1EDE7] text-[#4A4640] border border-[#E0D9CF]"
                               }`}
                             >
                               {log.type}
                             </span>
                           </td>
-                          <td className="py-3 px-4 text-slate-400 text-xs">
+                          <td className="py-3 px-4 text-[#6B6760] text-xs">
                             {log.gymId}
                           </td>
-                          <td className="py-3 px-4 text-right text-slate-300 font-medium">
+                          <td className="py-3 px-4 text-right text-[#4A4640] font-medium">
                             {log.time}
                           </td>
                         </tr>
@@ -1404,11 +1404,11 @@ export default function AdminPortal() {
         {/* TAB 2: MEMBERS MANAGEMENT */}
         {activeTab === "members" && (
 
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 overflow-hidden space-y-4 p-6">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] overflow-hidden space-y-4 p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h2 className="text-lg font-bold text-white">Gym Members & Subscriptions</h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <h2 className="text-xl font-bold text-[#141414] font-display">Gym Members & Subscriptions</h2>
+                <p className="text-xs text-[#6B6760] mt-0.5">
                   Manage memberships, renewals, and facility access permissions.
                 </p>
               </div>
@@ -1416,21 +1416,21 @@ export default function AdminPortal() {
               {/* FILTER & SEARCH */}
               <div className="flex flex-wrap items-center gap-3">
                 <div className="relative">
-                  <IconSearch size={16} className="absolute left-3 top-2.5 text-slate-400" />
+                  <IconSearch size={16} className="absolute left-3 top-2.5 text-[#6B6760]" />
                   <input
                     type="text"
                     placeholder="Search by name or phone..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#141414] focus:outline-none focus:border-[#FF5A1F]"
                   />
                 </div>
 
-                <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+                <div className="flex items-center gap-1 bg-[#F7F4EF] p-1 rounded-xl border border-[#ECE7E0] text-xs">
                   <button
                     onClick={() => setMemberFilter("ALL")}
                     className={`px-3 py-1 rounded-lg font-medium transition-all ${
-                      memberFilter === "ALL" ? "bg-slate-800 text-white" : "text-slate-400"
+                      memberFilter === "ALL" ? "bg-[#F1EDE7] text-[#141414]" : "text-[#6B6760]"
                     }`}
                   >
                     All ({membersList.length})
@@ -1438,7 +1438,7 @@ export default function AdminPortal() {
                   <button
                     onClick={() => setMemberFilter("ACTIVE")}
                     className={`px-3 py-1 rounded-lg font-medium transition-all ${
-                      memberFilter === "ACTIVE" ? "bg-slate-800 text-emerald-400" : "text-slate-400"
+                      memberFilter === "ACTIVE" ? "bg-[#F1EDE7] text-[#C93E0B]" : "text-[#6B6760]"
                     }`}
                   >
                     Active ({activeCount})
@@ -1446,7 +1446,7 @@ export default function AdminPortal() {
                   <button
                     onClick={() => setMemberFilter("EXPIRING_SOON")}
                     className={`px-3 py-1 rounded-lg font-medium transition-all ${
-                      memberFilter === "EXPIRING_SOON" ? "bg-slate-800 text-amber-400" : "text-slate-400"
+                      memberFilter === "EXPIRING_SOON" ? "bg-[#F1EDE7] text-[#8A6100]" : "text-[#6B6760]"
                     }`}
                   >
                     Expiring ({expiringSoonCount})
@@ -1454,7 +1454,7 @@ export default function AdminPortal() {
                   <button
                     onClick={() => setMemberFilter("EXPIRED")}
                     className={`px-3 py-1 rounded-lg font-medium transition-all ${
-                      memberFilter === "EXPIRED" ? "bg-slate-800 text-rose-400" : "text-slate-400"
+                      memberFilter === "EXPIRED" ? "bg-[#F1EDE7] text-[#C42B2B]" : "text-[#6B6760]"
                     }`}
                   >
                     Expired ({expiredCount})
@@ -1464,14 +1464,14 @@ export default function AdminPortal() {
             </div>
 
             {filteredMembers.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
+              <div className="p-12 text-center text-[#6B6760]">
                 <IconUser size={36} className="mx-auto mb-3 opacity-40" />
-                <p className="font-semibold text-slate-300">No members match the current filter</p>
+                <p className="font-semibold text-[#4A4640]">No members match the current filter</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-900/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
+                  <thead className="bg-white/80 text-[#6B6760] text-[11px] font-semibold tracking-wide border-b border-[#ECE7E0]">
                     <tr>
                       <th className="py-3.5 px-4">Member</th>
                       <th className="py-3.5 px-4">Presence</th>
@@ -1485,47 +1485,47 @@ export default function AdminPortal() {
                       <th className="py-3.5 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80 text-slate-200">
+                  <tbody className="divide-y divide-[#ECE7E0]/80 text-[#2A2724]">
                     {filteredMembers.map((member) => (
-                      <tr key={member.id} className="hover:bg-slate-800/40 transition-colors">
-                        <td className="py-3.5 px-4 font-semibold text-white">{member.name}</td>
+                      <tr key={member.id} className="hover:bg-[#F1EDE7]/40 transition-colors">
+                        <td className="py-3.5 px-4 font-semibold text-[#141414]">{member.name}</td>
                         <td className="py-3.5 px-4">
                           <span
                             className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
                               member.currentStatus === "IN"
-                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
-                                : "bg-slate-800 text-slate-400 border border-slate-700"
+                                ? "bg-[#1F9D55]/10 text-[#17803F] border border-[#1F9D55]/30"
+                                : "bg-[#F1EDE7] text-[#6B6760] border border-[#E0D9CF]"
                             }`}
                           >
                             <span
                               className={`w-1.5 h-1.5 rounded-full ${
-                                member.currentStatus === "IN" ? "bg-emerald-400 animate-pulse" : "bg-slate-500"
+                                member.currentStatus === "IN" ? "bg-[#1F9D55] animate-pulse" : "bg-[#A09A92]"
                               }`}
                             />
                             {member.currentStatus === "IN" ? "INSIDE" : "OUTSIDE"}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-slate-400">{member.phone}</td>
+                        <td className="py-3.5 px-4 text-[#6B6760]">{member.phone}</td>
                         <td className="py-3.5 px-4">
-                          <span className="font-medium text-slate-300">{member.membership.planName}</span>
-                          <span className="text-[11px] text-slate-500 block">
+                          <span className="font-medium text-[#4A4640]">{member.membership.planName}</span>
+                          <span className="text-[11px] text-[#7A756D] block">
                             ₹{member.membership.price}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 font-extrabold text-white">
+                        <td className="py-3.5 px-4 font-bold text-[#141414]">
                           {member.totalSessions} visits
                         </td>
-                        <td className="py-3.5 px-4 text-slate-400">
+                        <td className="py-3.5 px-4 text-[#6B6760]">
                           {member.membership.endDateFormatted}
                         </td>
                         <td className="py-3.5 px-4 font-bold">
                           <span
                             className={
                               member.membership.daysRemaining <= 0
-                                ? "text-rose-400"
+                                ? "text-[#C42B2B]"
                                 : member.membership.daysRemaining <= 7
-                                ? "text-amber-400"
-                                : "text-emerald-400"
+                                ? "text-[#8A6100]"
+                                : "text-[#17803F]"
                             }
                           >
                             {member.membership.daysRemaining}d
@@ -1533,24 +1533,24 @@ export default function AdminPortal() {
                         </td>
                         <td className="py-3.5 px-4">
                           <span
-                            className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                            className={`whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide ${
                               member.membership.status === "ACTIVE"
-                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                ? "bg-[#1F9D55]/10 text-[#17803F] border border-[#1F9D55]/20"
                                 : member.membership.status === "EXPIRING_SOON"
-                                ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-                                : "bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                                ? "bg-[#E0A100]/10 text-[#8A6100] border border-[#E0A100]/20"
+                                : "bg-[#D93636]/10 text-[#C42B2B] border border-[#D93636]/20"
                             }`}
                           >
                             {member.membership.status}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-slate-400">
+                        <td className="py-3.5 px-4 text-[#6B6760]">
                           {member.assignedTrainer?.name || "General"}
                         </td>
                         <td className="py-3.5 px-4 text-right">
                           <button
                             onClick={() => openRenewModal(member)}
-                            className="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-semibold transition-all"
+                            className="px-3 py-1.5 rounded-lg bg-[#FF5A1F]/10 hover:bg-[#FF5A1F]/25 text-[#C93E0B] border border-[#FF5A1F]/30 text-xs font-semibold transition-all"
                           >
                             Renew / Extend
                           </button>
@@ -1567,26 +1567,26 @@ export default function AdminPortal() {
 
         {/* TAB 3: PENDING TRAINER APPROVALS */}
         {activeTab === "trainers_pending" && (
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 overflow-hidden p-6 space-y-4">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] overflow-hidden p-6 space-y-4">
             <div>
-              <h2 className="text-lg font-bold text-white">Trainer Applications Awaiting Review</h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <h2 className="text-xl font-bold text-[#141414] font-display">Trainer Applications Awaiting Review</h2>
+              <p className="text-xs text-[#6B6760] mt-0.5">
                 New applicants cannot log in or coach members until an administrator grants approval.
               </p>
             </div>
 
             {pendingTrainers.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
-                <IconCheck size={36} className="mx-auto mb-3 text-emerald-400" />
-                <p className="font-semibold text-slate-300">All trainer applications are reviewed</p>
-                <p className="text-xs text-slate-500 mt-1">
+              <div className="p-12 text-center text-[#6B6760]">
+                <IconCheck size={36} className="mx-auto mb-3 text-[#C93E0B]" />
+                <p className="font-semibold text-[#4A4640]">All trainer applications are reviewed</p>
+                <p className="text-xs text-[#7A756D] mt-1">
                   No applicants are waiting in the approval gate.
                 </p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-900/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
+                  <thead className="bg-white/80 text-[#6B6760] text-[11px] font-semibold tracking-wide border-b border-[#ECE7E0]">
                     <tr>
                       <th className="py-3.5 px-4">Applicant</th>
                       <th className="py-3.5 px-4">Phone</th>
@@ -1597,25 +1597,25 @@ export default function AdminPortal() {
                       <th className="py-3.5 px-4 text-right">Decision</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80 text-slate-200">
+                  <tbody className="divide-y divide-[#ECE7E0]/80 text-[#2A2724]">
                     {pendingTrainers.map((trainer) => (
-                      <tr key={trainer.id} className="hover:bg-slate-800/40 transition-colors">
-                        <td className="py-4 px-4 font-semibold text-white">{trainer.name}</td>
-                        <td className="py-4 px-4 text-slate-400">{trainer.phone}</td>
-                        <td className="py-4 px-4 text-slate-400">{trainer.email}</td>
+                      <tr key={trainer.id} className="hover:bg-[#F1EDE7]/40 transition-colors">
+                        <td className="py-4 px-4 font-semibold text-[#141414]">{trainer.name}</td>
+                        <td className="py-4 px-4 text-[#6B6760]">{trainer.phone}</td>
+                        <td className="py-4 px-4 text-[#6B6760]">{trainer.email}</td>
                         <td className="py-4 px-4">
-                          <span className="bg-slate-800 text-slate-300 px-2 py-0.5 rounded text-xs">
+                          <span className="bg-[#F1EDE7] text-[#4A4640] px-2 py-0.5 rounded text-xs">
                             {trainer.specialization}
                           </span>
                         </td>
-                        <td className="py-4 px-4 text-slate-300">{trainer.experience}</td>
-                        <td className="py-4 px-4 text-slate-400">{trainer.date}</td>
+                        <td className="py-4 px-4 text-[#4A4640]">{trainer.experience}</td>
+                        <td className="py-4 px-4 text-[#6B6760]">{trainer.date}</td>
                         <td className="py-4 px-4 text-right">
                           <div className="flex items-center justify-end gap-2">
                             <button
                               onClick={() => handleTrainerApproval(trainer.id, "approve")}
                               disabled={actionLoading === trainer.id}
-                              className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1 transition-all disabled:opacity-50"
+                              className="px-3 py-1.5 rounded-lg bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs flex items-center gap-1 transition-all disabled:opacity-50"
                             >
                               <IconCheck size={14} />
                               <span>{actionLoading === trainer.id ? "..." : "Approve"}</span>
@@ -1623,7 +1623,7 @@ export default function AdminPortal() {
                             <button
                               onClick={() => handleTrainerApproval(trainer.id, "reject")}
                               disabled={actionLoading === trainer.id}
-                              className="px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-semibold flex items-center gap-1 transition-all disabled:opacity-50"
+                              className="px-3 py-1.5 rounded-lg bg-[#D93636]/10 hover:bg-[#C42B2B]/20 text-[#C42B2B] border border-[#D93636]/30 text-xs font-semibold flex items-center gap-1 transition-all disabled:opacity-50"
                             >
                               <IconX size={14} />
                               <span>Reject</span>
@@ -1641,23 +1641,23 @@ export default function AdminPortal() {
 
         {/* TAB 4: APPROVED STAFF */}
         {activeTab === "trainers_approved" && (
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 overflow-hidden p-6 space-y-4">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] overflow-hidden p-6 space-y-4">
             <div>
-              <h2 className="text-lg font-bold text-white">Active Coaching & Training Staff</h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <h2 className="text-xl font-bold text-[#141414] font-display">Active Coaching & Training Staff</h2>
+              <p className="text-xs text-[#6B6760] mt-0.5">
                 Approved coaches authorized to train members and record duty shifts.
               </p>
             </div>
 
             {approvedTrainers.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
+              <div className="p-12 text-center text-[#6B6760]">
                 <IconUser size={36} className="mx-auto mb-3 opacity-40" />
-                <p className="font-semibold text-slate-300">No approved trainers yet</p>
+                <p className="font-semibold text-[#4A4640]">No approved trainers yet</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-900/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
+                  <thead className="bg-white/80 text-[#6B6760] text-[11px] font-semibold tracking-wide border-b border-[#ECE7E0]">
                     <tr>
                       <th className="py-3.5 px-4">Trainer Name</th>
                       <th className="py-3.5 px-4">Phone</th>
@@ -1668,19 +1668,19 @@ export default function AdminPortal() {
                       <th className="py-3.5 px-4 text-right">Revocation</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80 text-slate-200">
+                  <tbody className="divide-y divide-[#ECE7E0]/80 text-[#2A2724]">
                     {approvedTrainers.map((trainer) => (
-                      <tr key={trainer.id} className="hover:bg-slate-800/40 transition-colors">
-                        <td className="py-4 px-4 font-semibold text-white">{trainer.name}</td>
-                        <td className="py-4 px-4 text-slate-400">{trainer.phone}</td>
-                        <td className="py-4 px-4 text-slate-400">{trainer.email}</td>
+                      <tr key={trainer.id} className="hover:bg-[#F1EDE7]/40 transition-colors">
+                        <td className="py-4 px-4 font-semibold text-[#141414]">{trainer.name}</td>
+                        <td className="py-4 px-4 text-[#6B6760]">{trainer.phone}</td>
+                        <td className="py-4 px-4 text-[#6B6760]">{trainer.email}</td>
                         <td className="py-4 px-4">{trainer.specialization}</td>
                         <td className="py-4 px-4">
                           <span
-                            className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                            className={`whitespace-nowrap px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide ${
                               trainer.dutyStatus === "IN"
-                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                                : "bg-slate-800 text-slate-400 border border-slate-700"
+                                ? "bg-[#1F9D55]/10 text-[#17803F] border border-[#1F9D55]/20"
+                                : "bg-[#F1EDE7] text-[#6B6760] border border-[#E0D9CF]"
                             }`}
                           >
                             {trainer.dutyStatus === "IN" ? "On Duty" : "Off Duty"}
@@ -1695,7 +1695,7 @@ export default function AdminPortal() {
                               }
                             }}
                             disabled={actionLoading === trainer.id}
-                            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-rose-400 border border-slate-700 text-xs font-semibold transition-all disabled:opacity-50"
+                            className="px-3 py-1.5 rounded-lg bg-[#F1EDE7] hover:bg-[#E4DED5] text-[#6B6760] hover:text-[#C42B2B] border border-[#E0D9CF] text-xs font-semibold transition-all disabled:opacity-50"
                           >
                             Revoke
                           </button>
@@ -1711,18 +1711,18 @@ export default function AdminPortal() {
 
         {/* TAB 5: EXPENSES LEDGER */}
         {activeTab === "expenses" && (
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 overflow-hidden p-6 space-y-4">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] overflow-hidden p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-white">Facility Expenses Ledger</h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <h2 className="text-xl font-bold text-[#141414] font-display">Facility Expenses Ledger</h2>
+                <p className="text-xs text-[#6B6760] mt-0.5">
                   Track recurring maintenance, utilities, and operational costs. Total: ₹{totalExpense.toLocaleString()}
                 </p>
               </div>
 
               <button
                 onClick={() => setShowExpenseModal(true)}
-                className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-amber-500/20"
+                className="px-4 py-2 rounded-xl bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide flex items-center gap-2 transition-all shadow-md shadow-[#141414]/10"
               >
                 <IconPlus size={16} />
                 <span>Add Expense</span>
@@ -1730,26 +1730,26 @@ export default function AdminPortal() {
             </div>
 
             {expensesList.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
+              <div className="p-12 text-center text-[#6B6760]">
                 <IconCreditCard size={36} className="mx-auto mb-3 opacity-40" />
-                <p className="font-semibold text-slate-300">No operational expenses recorded</p>
+                <p className="font-semibold text-[#4A4640]">No operational expenses recorded</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-900/80 text-slate-400 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-800">
+                  <thead className="bg-white/80 text-[#6B6760] text-[11px] font-semibold tracking-wide border-b border-[#ECE7E0]">
                     <tr>
                       <th className="py-3.5 px-4">Expense Category</th>
                       <th className="py-3.5 px-4">Amount</th>
                       <th className="py-3.5 px-4">Date Recorded</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80 text-slate-200">
+                  <tbody className="divide-y divide-[#ECE7E0]/80 text-[#2A2724]">
                     {expensesList.map((exp, i) => (
-                      <tr key={exp.id || i} className="hover:bg-slate-800/40 transition-colors">
-                        <td className="py-3.5 px-4 font-semibold text-white">{exp.category}</td>
-                        <td className="py-3.5 px-4 font-bold text-rose-400">₹{exp.amount}</td>
-                        <td className="py-3.5 px-4 text-slate-400">
+                      <tr key={exp.id || i} className="hover:bg-[#F1EDE7]/40 transition-colors">
+                        <td className="py-3.5 px-4 font-semibold text-[#141414]">{exp.category}</td>
+                        <td className="py-3.5 px-4 font-bold text-[#C42B2B]">₹{exp.amount}</td>
+                        <td className="py-3.5 px-4 text-[#6B6760]">
                           {exp.dateFormatted ||
                             (exp.date?.toDate
                               ? exp.date.toDate().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
@@ -1767,18 +1767,18 @@ export default function AdminPortal() {
 
       {/* RENEW MEMBERSHIP MODAL */}
       {renewModalMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 w-full max-w-md p-6 space-y-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#141414]/60 backdrop-blur-sm">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] w-full max-w-md p-6 space-y-6 shadow-md">
+            <div className="flex items-center justify-between pb-4 border-b border-[#ECE7E0]">
               <div>
-                <h3 className="text-lg font-bold text-white">Renew Membership</h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Member: <strong className="text-white">{renewModalMember.name}</strong>
+                <h3 className="text-xl font-bold text-[#141414] font-display">Renew Membership</h3>
+                <p className="text-xs text-[#6B6760] mt-0.5">
+                  Member: <strong className="text-[#141414]">{renewModalMember.name}</strong>
                 </p>
               </div>
               <button
                 onClick={() => setRenewModalMember(null)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-[#6B6760] hover:text-[#141414] text-sm"
               >
                 Close
               </button>
@@ -1786,7 +1786,7 @@ export default function AdminPortal() {
 
             <form onSubmit={handleRenewSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-2">
                   Select Plan Extension Duration
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -1801,14 +1801,14 @@ export default function AdminPortal() {
                       }}
                       className={`p-3 rounded-xl border text-left transition-all ${
                         renewMonths === plan.durationMonths
-                          ? "bg-amber-500/10 border-amber-500 text-white"
-                          : "bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700"
+                          ? "bg-[#FF5A1F]/10 border-[#FF5A1F] text-[#141414]"
+                          : "bg-[#F7F4EF] border-[#ECE7E0] text-[#6B6760] hover:border-[#E0D9CF]"
                       }`}
                     >
-                      <span className="block text-[11px] font-bold text-amber-400">
+                      <span className="block text-[11px] font-bold text-[#C93E0B]">
                         {plan.durationMonths} Mo
                       </span>
-                      <span className="block text-xs font-semibold text-white mt-1">
+                      <span className="block text-xs font-semibold text-[#141414] mt-1">
                         ₹{plan.price}
                       </span>
                     </button>
@@ -1817,48 +1817,48 @@ export default function AdminPortal() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1.5">
                   Plan Name
                 </label>
                 <input
                   type="text"
                   value={renewPlanName}
                   onChange={(e) => setRenewPlanName(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-4 py-2.5 text-xs text-[#141414] focus:outline-none focus:border-[#FF5A1F]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1.5">
                   Amount Received (₹)
                 </label>
                 <input
                   type="number"
                   value={renewAmount}
                   onChange={(e) => setRenewAmount(Number(e.target.value))}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-4 py-2.5 text-xs text-[#141414] focus:outline-none focus:border-[#FF5A1F]"
                   required
                 />
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
+              <div className="p-3 rounded-xl bg-[#F7F4EF]/60 border border-[#ECE7E0] text-xs text-[#6B6760]">
                 Extension adds {renewMonths} month(s) from current expiry or today.
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#ECE7E0]">
                 <button
                   type="button"
                   onClick={() => setRenewModalMember(null)}
                   disabled={renewing}
-                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+                  className="px-4 py-2 rounded-lg bg-[#F1EDE7] hover:bg-[#E4DED5] text-[#4A4640] text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={renewing}
-                  className="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50"
+                  className="px-5 py-2 rounded-lg bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all disabled:opacity-50"
                 >
                   {renewing ? "Extending..." : "Confirm Extension"}
                 </button>
@@ -1870,30 +1870,30 @@ export default function AdminPortal() {
 
       {/* PRINTABLE ENTRANCE POSTER MODAL */}
       {showPosterModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm">
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 w-full max-w-md p-6 space-y-6 shadow-2xl text-center">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <span className="text-xs uppercase font-extrabold tracking-wider text-teal-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#141414]/60 backdrop-blur-sm">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] w-full max-w-md p-6 space-y-6 shadow-md text-center">
+            <div className="flex items-center justify-between pb-3 border-b border-[#ECE7E0]">
+              <span className="text-xs font-bold tracking-wide text-[#C93E0B]">
                 Official Facility Asset
               </span>
               <button
                 onClick={() => setShowPosterModal(false)}
-                className="text-slate-400 hover:text-white text-xs font-bold"
+                className="text-[#6B6760] hover:text-[#141414] text-xs font-bold"
               >
                 Close (ESC)
               </button>
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-xl font-extrabold text-white uppercase tracking-wider">
+              <h2 className="text-2xl font-bold text-[#141414] tracking-wide font-display">
                 Iconic Gym Karnal
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#6B6760]">
                 Entrance Turnstile Check-In QR Poster
               </p>
             </div>
 
-            <div className="p-4 bg-white rounded-2xl shadow-2xl inline-block border-4 border-emerald-500/40">
+            <div className="p-4 bg-white rounded-2xl shadow-md inline-block border-4 border-[#FF5A1F]/40">
               {entrancePosterQr ? (
                 <img
                   src={entrancePosterQr}
@@ -1901,29 +1901,29 @@ export default function AdminPortal() {
                   className="w-64 h-64 mx-auto block rounded-lg"
                 />
               ) : (
-                <div className="w-64 h-64 flex items-center justify-center text-slate-400">
+                <div className="w-64 h-64 flex items-center justify-center text-[#6B6760]">
                   <IconRefresh className="animate-spin" size={32} />
                 </div>
               )}
             </div>
 
-            <div className="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed text-left space-y-1">
-              <p className="font-bold text-white flex items-center gap-1.5">
-                <IconCheck size={14} className="text-emerald-400" />
+            <div className="bg-white/80 p-3 rounded-xl border border-[#ECE7E0] text-xs text-[#4A4640] leading-relaxed text-left space-y-1">
+              <p className="font-bold text-[#141414] flex items-center gap-1.5">
+                <IconCheck size={14} className="text-[#C93E0B]" />
                 <span>How to use this poster:</span>
               </p>
-              <p className="text-slate-400 text-[11px]">
+              <p className="text-[#6B6760] text-[11px]">
                 1. Print this poster and tape it on the gym entrance door or turnstile gate.<br />
                 2. Members open the app &rarr; Attendance &rarr; <strong>Camera Scanner</strong> to scan this code on entry.<br />
                 3. The system automatically records their attendance in real time.
               </p>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#ECE7E0]">
               <button
                 type="button"
                 onClick={() => setShowPosterModal(false)}
-                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+                className="px-4 py-2.5 rounded-xl bg-[#F1EDE7] hover:bg-[#E4DED5] text-[#4A4640] text-xs font-semibold"
               >
                 Close
               </button>
@@ -1968,32 +1968,32 @@ export default function AdminPortal() {
 
       {/* RECEPTION GATE SCANNER ACKNOWLEDGMENT MODAL (PREVENTS RAPID LOOP) */}
       {scanAckModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="bg-[#0f172a] border border-slate-700/80 rounded-3xl max-w-sm w-full p-6 sm:p-7 text-center shadow-2xl space-y-5 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#141414]/85 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="bg-[#FFFFFF] border border-[#E0D9CF]/80 rounded-2xl max-w-sm w-full p-6 sm:p-7 text-center shadow-md space-y-5 animate-in zoom-in-95 duration-200">
             {/* ANIMATED PULSING ICON */}
             <div className="flex justify-center pt-2">
               {scanAckModal.title.includes("DENIED") || scanAckModal.title.includes("ERROR") ? (
-                <div className="w-20 h-20 rounded-full bg-rose-500/20 border-4 border-rose-500 flex items-center justify-center shadow-lg shadow-rose-500/30 animate-bounce">
-                  <IconAlertCircle size={44} className="text-rose-400" />
+                <div className="w-20 h-20 rounded-full bg-[#D93636]/20 border-4 border-[#D93636] flex items-center justify-center shadow-md shadow-[#141414]/10 animate-bounce">
+                  <IconAlertCircle size={44} className="text-[#C42B2B]" />
                 </div>
               ) : scanAckModal.action === "check-in" ? (
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-4 border-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/30 animate-pulse">
-                    <IconCheck size={44} className="text-emerald-400" />
+                  <div className="w-20 h-20 rounded-full bg-[#FF5A1F]/20 border-4 border-[#FF5A1F] flex items-center justify-center shadow-md shadow-[#141414]/10 animate-pulse">
+                    <IconCheck size={44} className="text-[#C93E0B]" />
                   </div>
                   <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5A1F] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-[#FF5A1F]"></span>
                   </span>
                 </div>
               ) : (
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-cyan-500/20 border-4 border-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/30 animate-pulse">
-                    <IconClock size={40} className="text-cyan-400" />
+                  <div className="w-20 h-20 rounded-full bg-[#2F6FED]/20 border-4 border-[#2F6FED] flex items-center justify-center shadow-md shadow-[#141414]/10 animate-pulse">
+                    <IconClock size={40} className="text-[#1F57C9]" />
                   </div>
                   <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-cyan-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2F6FED] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-[#2F6FED]"></span>
                   </span>
                 </div>
               )}
@@ -2002,58 +2002,58 @@ export default function AdminPortal() {
             {/* TITLE & DETAILS */}
             <div className="space-y-1.5">
               <span
-                className={`text-[11px] uppercase font-extrabold tracking-widest block ${
+                className={`text-[11px] font-bold tracking-wide block ${
                   scanAckModal.title.includes("DENIED") || scanAckModal.title.includes("ERROR")
-                    ? "text-rose-400"
+                    ? "text-[#C42B2B]"
                     : scanAckModal.action === "check-in"
-                    ? "text-emerald-400"
-                    : "text-cyan-400"
+                    ? "text-[#C93E0B]"
+                    : "text-[#1F57C9]"
                 }`}
               >
                 {scanAckModal.title}
               </span>
-              <h3 className="text-xl font-extrabold text-white">
+              <h3 className="text-2xl font-bold text-[#141414] font-display">
                 {scanAckModal.title.includes("DENIED")
                   ? "Access Denied"
                   : scanAckModal.action === "check-in"
                   ? "Member Checked In"
                   : "Member Checked Out"}
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed max-w-xs mx-auto pt-1">
+              <p className="text-xs text-[#4A4640] leading-relaxed max-w-xs mx-auto pt-1">
                 {scanAckModal.message}
               </p>
             </div>
 
             {/* MEMBER DETAILS CARD */}
             {scanAckModal.user && (
-              <div className="bg-slate-900/90 rounded-2xl p-3.5 border border-slate-800 text-xs space-y-2 text-left">
-                <div className="flex items-center justify-between text-slate-400">
+              <div className="bg-white/90 rounded-2xl p-3.5 border border-[#ECE7E0] text-xs space-y-2 text-left">
+                <div className="flex items-center justify-between text-[#6B6760]">
                   <span>Member Name</span>
-                  <strong className="text-white font-semibold">{scanAckModal.user.name || "Member"}</strong>
+                  <strong className="text-[#141414] font-semibold">{scanAckModal.user.name || "Member"}</strong>
                 </div>
                 {scanAckModal.user.phone && (
-                  <div className="flex items-center justify-between text-slate-400">
+                  <div className="flex items-center justify-between text-[#6B6760]">
                     <span>Phone</span>
-                    <strong className="text-slate-200">{scanAckModal.user.phone}</strong>
+                    <strong className="text-[#2A2724]">{scanAckModal.user.phone}</strong>
                   </div>
                 )}
                 {scanAckModal.user.membership && (
-                  <div className="flex items-center justify-between text-slate-400">
+                  <div className="flex items-center justify-between text-[#6B6760]">
                     <span>Plan Status</span>
                     <strong
                       className={
                         scanAckModal.user.membership.status === "ACTIVE"
-                          ? "text-emerald-400 font-bold"
-                          : "text-rose-400 font-bold"
+                          ? "text-[#17803F] font-bold"
+                          : "text-[#C42B2B] font-bold"
                       }
                     >
                       {scanAckModal.user.membership.planName || "Plan"} · {scanAckModal.user.membership.status}
                     </strong>
                   </div>
                 )}
-                <div className="flex items-center justify-between text-slate-400">
+                <div className="flex items-center justify-between text-[#6B6760]">
                   <span>Timestamp</span>
-                  <strong className="text-slate-200">{scanAckModal.time}</strong>
+                  <strong className="text-[#2A2724]">{scanAckModal.time}</strong>
                 </div>
               </div>
             )}
@@ -2068,7 +2068,7 @@ export default function AdminPortal() {
                     handleCloseScanAckModal();
                     setRenewModalMember(usr);
                   }}
-                  className="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs rounded-xl uppercase tracking-wider transition-all shadow-md shadow-amber-500/25 cursor-pointer"
+                  className="w-full py-3 bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs rounded-xl tracking-wide transition-all shadow-md shadow-[#141414]/10 cursor-pointer"
                 >
                   Renew Subscription Now
                 </button>
@@ -2077,12 +2077,12 @@ export default function AdminPortal() {
               <button
                 type="button"
                 onClick={handleCloseScanAckModal}
-                className={`w-full py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer ${
+                className={`w-full py-3.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer ${
                   scanAckModal.title.includes("DENIED") || scanAckModal.title.includes("ERROR")
-                    ? "bg-rose-500 hover:bg-rose-400 text-white shadow-rose-500/25"
+                    ? "bg-[#D93636] hover:bg-[#E04B4B] text-white shadow-[#141414]/10"
                     : scanAckModal.action === "check-in"
-                    ? "btn-emerald shadow-emerald-500/25"
-                    : "bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-cyan-500/25"
+                    ? "btn-emerald shadow-[#141414]/10"
+                    : "bg-[#2F6FED] hover:bg-[#2F6FED] text-white shadow-[#141414]/10"
                 }`}
               >
                 Scan Next Member (Resume Camera)
@@ -2094,13 +2094,13 @@ export default function AdminPortal() {
 
       {/* RECORD EXPENSE MODAL */}
       {showExpenseModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 w-full max-w-md p-6 space-y-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-              <h3 className="text-lg font-bold text-white">Record Gym Expense</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#141414]/60 backdrop-blur-sm">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] w-full max-w-md p-6 space-y-6 shadow-md">
+            <div className="flex items-center justify-between pb-4 border-b border-[#ECE7E0]">
+              <h3 className="text-xl font-bold text-[#141414] font-display">Record Gym Expense</h3>
               <button
                 onClick={() => setShowExpenseModal(false)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-[#6B6760] hover:text-[#141414] text-sm"
               >
                 Close
               </button>
@@ -2108,7 +2108,7 @@ export default function AdminPortal() {
 
             <form onSubmit={handleAddExpense} className="space-y-4">
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1.5">
                   Category / Reason
                 </label>
                 <input
@@ -2116,13 +2116,13 @@ export default function AdminPortal() {
                   placeholder="e.g. Electricity bill, Equipment maintenance"
                   value={expenseReason}
                   onChange={(e) => setExpenseReason(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-4 py-2.5 text-xs text-[#141414] focus:outline-none focus:border-[#FF5A1F]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1.5">
                   Amount (₹)
                 </label>
                 <input
@@ -2130,22 +2130,22 @@ export default function AdminPortal() {
                   placeholder="e.g. 3500"
                   value={expenseAmount}
                   onChange={(e) => setExpenseAmount(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl px-4 py-2.5 text-xs text-[#141414] focus:outline-none focus:border-[#FF5A1F]"
                   required
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#ECE7E0]">
                 <button
                   type="button"
                   onClick={() => setShowExpenseModal(false)}
-                  className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+                  className="px-4 py-2 rounded-lg bg-[#F1EDE7] hover:bg-[#E4DED5] text-[#4A4640] text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
+                  className="px-5 py-2 rounded-lg bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all shadow-md shadow-[#141414]/10"
                 >
                   Save Expense
                 </button>

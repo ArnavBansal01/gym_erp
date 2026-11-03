@@ -160,21 +160,21 @@ export default function TrainerLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col justify-center items-center p-6 selection:bg-teal-500 selection:text-slate-950">
-      <div className="w-full max-w-md bg-[#0f172a] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 relative">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#141414] flex flex-col justify-center items-center p-6 selection:bg-[#FF5A1F] selection:text-[#141414]">
+      <div className="w-full max-w-md bg-[#FFFFFF] border border-[#ECE7E0] rounded-2xl p-6 sm:p-8 shadow-md space-y-6 relative">
         {/* TOP BRANDING */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-700 flex items-center justify-center text-white mx-auto shadow-lg shadow-teal-500/20">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF5A1F] to-[#FF5A1F] flex items-center justify-center text-[#141414] mx-auto shadow-md shadow-[#141414]/10">
             <IconDumbbell size={24} />
           </div>
-          <h2 className="text-2xl font-extrabold text-white tracking-wide">Coach Terminal</h2>
-          <p className="text-xs text-slate-400">
+          <h2 className="text-3xl font-bold text-[#141414] tracking-wide font-display">Coach Terminal</h2>
+          <p className="text-xs text-[#6B6760]">
             Certified Trainers & Fitness Coaching Staff Portal
           </p>
         </div>
 
         {/* TABS SWITCHER */}
-        <div className="flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+        <div className="flex items-center gap-1 bg-white/90 p-1.5 rounded-xl border border-[#ECE7E0]">
           <button
             type="button"
             onClick={() => {
@@ -183,8 +183,8 @@ export default function TrainerLoginPage() {
             }}
             className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               activeTab === "login"
-                ? "bg-slate-800 text-teal-400 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#C93E0B] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Coach Sign In
@@ -197,8 +197,8 @@ export default function TrainerLoginPage() {
             }}
             className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               activeTab === "apply"
-                ? "bg-slate-800 text-teal-400 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#C93E0B] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Apply as Staff
@@ -206,14 +206,14 @@ export default function TrainerLoginPage() {
         </div>
 
         {error && (
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-[#D93636]/10 border border-[#D93636]/30 text-[#C42B2B] text-xs flex items-center gap-2">
             <IconAlertCircle size={16} className="shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-[#FF5A1F]/10 border border-[#FF5A1F]/30 text-[#C93E0B] text-xs flex items-center gap-2">
             <IconCheck size={16} className="shrink-0" />
             <span>{success}</span>
           </div>
@@ -226,7 +226,7 @@ export default function TrainerLoginPage() {
               type="button"
               onClick={handleGoogleLogin}
               disabled={loading}
-              className="w-full py-3.5 px-4 bg-white hover:bg-slate-100 text-slate-900 font-bold rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-all shadow-md disabled:opacity-50"
+              className="w-full py-3.5 px-4 bg-white hover:bg-[#F7F4EF] border border-[#D8D0C5] text-[#141414] font-bold rounded-xl text-sm tracking-wide flex items-center justify-center gap-3 transition-all disabled:opacity-50"
             >
               <svg width="18" height="18" viewBox="0 0 24 24">
                 <path
@@ -249,8 +249,8 @@ export default function TrainerLoginPage() {
               <span>{loading ? "Verifying Coach Account..." : "Continue with Google (Coach)"}</span>
             </button>
 
-            <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-400 space-y-1">
-              <span className="font-semibold text-slate-200 block">Trainer Access Note:</span>
+            <div className="p-3.5 rounded-xl bg-white/90 border border-[#ECE7E0] text-xs text-[#6B6760] space-y-1">
+              <span className="font-semibold text-[#2A2724] block">Trainer Access Note:</span>
               <p className="text-[11px] leading-relaxed">
                 Coaching staff accounts require verified status approved by gym management before accessing client rosters and shift terminals.
               </p>
@@ -262,7 +262,7 @@ export default function TrainerLoginPage() {
         {activeTab === "apply" && (
           <form onSubmit={handleApply} className="space-y-3.5">
             <div>
-              <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                 Full Legal Name
               </label>
               <input
@@ -276,7 +276,7 @@ export default function TrainerLoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                 Phone Number
               </label>
               <input
@@ -290,7 +290,7 @@ export default function TrainerLoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                 Primary Specialization
               </label>
               <select
@@ -307,7 +307,7 @@ export default function TrainerLoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                 Certifications & Experience
               </label>
               <input
@@ -323,7 +323,7 @@ export default function TrainerLoginPage() {
             <button
               type="submit"
               disabled={loading || !applyForm.name || !applyForm.phone}
-              className="w-full py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 mt-1 shadow-md shadow-teal-500/20"
+              className="w-full py-3 rounded-xl bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all disabled:opacity-50 mt-1 shadow-md shadow-[#141414]/10"
             >
               {loading ? "Submitting..." : "Submit Coach Application"}
             </button>
@@ -331,18 +331,18 @@ export default function TrainerLoginPage() {
         )}
 
         {/* BOTTOM NAVIGATION LINKS */}
-        <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500">
+        <div className="pt-2 border-t border-[#ECE7E0]/80 flex items-center justify-between text-xs text-[#7A756D]">
           <button
             type="button"
             onClick={() => router.push("/")}
-            className="hover:text-emerald-400 transition-colors"
+            className="hover:text-[#C93E0B] transition-colors"
           >
             &larr; Member Portal
           </button>
           <button
             type="button"
             onClick={() => router.push("/admin")}
-            className="hover:text-amber-400 transition-colors"
+            className="hover:text-[#8A6100] transition-colors"
           >
             Admin ERP &rarr;
           </button>

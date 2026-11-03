@@ -66,10 +66,10 @@ export default function PendingApprovalPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#090d16] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-4">
         <div className="text-center">
-          <div className="w-10 h-10 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-          <p className="text-sm text-slate-400">Verifying account credentials...</p>
+          <div className="w-10 h-10 border-2 border-[#FF5A1F] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <p className="text-sm text-[#6B6760]">Verifying account credentials...</p>
         </div>
       </div>
     );
@@ -78,16 +78,16 @@ export default function PendingApprovalPage() {
   // SCREEN: APPROVED (Auto-redirect)
   if (isApproved) {
     return (
-      <div className="min-h-screen bg-[#090d16] flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-[#0f172a] border border-emerald-500/40 rounded-2xl p-8 shadow-2xl text-center">
-          <div className="w-14 h-14 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-[#FFFFFF] border border-[#FF5A1F]/40 rounded-2xl p-8 shadow-md text-center">
+          <div className="w-14 h-14 rounded-full bg-[#FF5A1F]/10 text-[#C93E0B] flex items-center justify-center mx-auto mb-4 border border-[#FF5A1F]/30">
             <IconCheck size={28} />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Application Approved</h2>
-          <p className="text-sm text-slate-400 leading-relaxed mb-6">
+          <h2 className="text-2xl font-bold text-[#141414] mb-2 font-display">Application Approved</h2>
+          <p className="text-sm text-[#6B6760] leading-relaxed mb-6">
             Gym management has authorized your coaching account. Welcome to the Iconic Gym staff.
           </p>
-          <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-400">
+          <div className="p-3 rounded-lg bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-xs font-semibold text-[#C93E0B]">
             Unlocking Trainer Dashboard...
           </div>
         </div>
@@ -96,42 +96,42 @@ export default function PendingApprovalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#090d16] flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#0f172a] border border-slate-800 rounded-2xl p-8 shadow-2xl">
+    <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-[#FFFFFF] border border-[#ECE7E0] rounded-2xl p-8 shadow-md">
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-3">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#E0A100]/10 border border-[#E0A100]/20 text-[#8A6100] mb-3">
             <IconClock size={24} />
           </div>
-          <h1 className="text-xl font-bold text-white">Application Pending Approval</h1>
-          <p className="text-xs text-slate-400 mt-1">Management Verification in Progress</p>
+          <h1 className="text-2xl font-bold text-[#141414] font-display">Application Pending Approval</h1>
+          <p className="text-xs text-[#6B6760] mt-1">Management Verification in Progress</p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-6 space-y-3">
-          <div className="flex items-center justify-between text-xs pb-2 border-b border-slate-800">
-            <span className="text-slate-400">Status</span>
+        <div className="bg-[#F7F4EF] border border-[#ECE7E0] rounded-xl p-4 mb-6 space-y-3">
+          <div className="flex items-center justify-between text-xs pb-2 border-b border-[#ECE7E0]">
+            <span className="text-[#6B6760]">Status</span>
             <span className="status-pill status-warning">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E0A100] animate-pulse"></span>
               Under Review
             </span>
           </div>
 
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-400">Applicant</span>
-            <span className="font-semibold text-slate-200">{userProfile?.name}</span>
+            <span className="text-[#6B6760]">Applicant</span>
+            <span className="font-semibold text-[#2A2724]">{userProfile?.name}</span>
           </div>
 
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-400">Specialization</span>
-            <span className="text-slate-200">{userProfile?.specialization}</span>
+            <span className="text-[#6B6760]">Specialization</span>
+            <span className="text-[#2A2724]">{userProfile?.specialization}</span>
           </div>
 
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-400">Contact</span>
-            <span className="text-slate-300">{userProfile?.phone}</span>
+            <span className="text-[#6B6760]">Contact</span>
+            <span className="text-[#4A4640]">{userProfile?.phone}</span>
           </div>
         </div>
 
-        <div className="p-3.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300 leading-relaxed mb-6 flex items-start gap-2.5">
+        <div className="p-3.5 rounded-lg bg-[#2F6FED]/10 border border-[#2F6FED]/20 text-xs text-[#1F57C9] leading-relaxed mb-6 flex items-start gap-2.5">
           <IconShield size={16} className="shrink-0 mt-0.5" />
           <span>
             This portal automatically monitors verification status in real-time. Once the admin approves your profile, this screen will immediately unlock.

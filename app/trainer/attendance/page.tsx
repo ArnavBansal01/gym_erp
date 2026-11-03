@@ -84,7 +84,7 @@ export default function TrainerAttendancePage() {
         QRCode.toDataURL(payload, {
           width: 320,
           margin: 2,
-          color: { dark: "#0f766e", light: "#ffffff" },
+          color: { dark: "#141414", light: "#ffffff" },
         }).then((url) => setQrCodeDataUrl(url));
         setLoading(false);
         return;
@@ -141,7 +141,7 @@ export default function TrainerAttendancePage() {
           QRCode.toDataURL(payload, {
             width: 320,
             margin: 2,
-            color: { dark: "#042f2e", light: "#ffffff" },
+            color: { dark: "#141414", light: "#ffffff" },
           }).then((url) => setQrCodeDataUrl(url));
         }
         setLoading(false);
@@ -418,9 +418,9 @@ export default function TrainerAttendancePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#090d16] flex items-center justify-center text-slate-300">
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center text-[#4A4640]">
         <div className="flex flex-col items-center gap-3">
-          <IconRefresh className="animate-spin text-teal-400" size={32} />
+          <IconRefresh className="animate-spin text-[#C93E0B]" size={32} />
           <p className="text-sm font-medium tracking-wide">Loading Trainer Duty Terminal...</p>
         </div>
       </div>
@@ -428,7 +428,7 @@ export default function TrainerAttendancePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#141414] flex flex-col items-center justify-center p-4 relative">
       <div id="file-reader-hidden-trainer" style={{ display: "none" }} />
 
       {/* CONTAINER */}
@@ -443,28 +443,28 @@ export default function TrainerAttendancePage() {
             <span>Trainer Dashboard</span>
           </button>
           <div className="text-right">
-            <span className="text-xs uppercase font-extrabold tracking-wider text-white block">
+            <span className="text-xs font-bold tracking-wide text-[#141414] block">
               Iconic Gym
             </span>
-            <span className="text-[10px] uppercase text-teal-400 font-bold tracking-widest block">
+            <span className="text-[11px] text-[#C93E0B] font-bold tracking-wide block">
               Staff Shift Gate
             </span>
           </div>
         </div>
 
         {/* STATUS BANNER */}
-        <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-4 flex items-center justify-between">
+        <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
               className={`w-3 h-3 rounded-full ${
-                currentStatus === "IN" ? "bg-emerald-400 animate-pulse" : "bg-slate-500"
+                currentStatus === "IN" ? "bg-[#1F9D55] animate-pulse" : "bg-[#A09A92]"
               }`}
             />
             <div>
-              <span className="text-xs text-slate-400 block">Duty Status</span>
+              <span className="text-xs text-[#6B6760] block">Duty Status</span>
               <strong
-                className={`text-sm font-extrabold ${
-                  currentStatus === "IN" ? "text-emerald-400" : "text-white"
+                className={`text-sm font-bold ${
+                  currentStatus === "IN" ? "text-[#17803F]" : "text-[#141414]"
                 }`}
               >
                 {currentStatus === "IN" ? "Currently On Duty" : "Currently Off Duty"}
@@ -473,10 +473,10 @@ export default function TrainerAttendancePage() {
           </div>
 
           <span
-            className={`px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider ${
+            className={`px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wide ${
               currentStatus === "IN"
-                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                : "bg-slate-800 text-slate-400 border border-slate-700"
+                ? "bg-[#1F9D55]/10 text-[#17803F] border border-[#1F9D55]/20"
+                : "bg-[#F1EDE7] text-[#6B6760] border border-[#E0D9CF]"
             }`}
           >
             {currentStatus === "IN" ? "ACTIVE SHIFT" : "OFF DUTY"}
@@ -484,13 +484,13 @@ export default function TrainerAttendancePage() {
         </div>
 
         {/* MODE TOGGLE TABS (2 Tabs Only: My QR Pass & Camera Scanner) */}
-        <div className="flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+        <div className="flex items-center gap-1 bg-white/90 p-1.5 rounded-xl border border-[#ECE7E0]">
           <button
             onClick={() => setViewMode("pass")}
             className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               viewMode === "pass"
-                ? "bg-slate-800 text-teal-400 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#C93E0B] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             My QR Pass
@@ -499,8 +499,8 @@ export default function TrainerAttendancePage() {
             onClick={() => setViewMode("camera")}
             className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               viewMode === "camera"
-                ? "bg-slate-800 text-teal-400 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-[#F1EDE7] text-[#C93E0B] shadow-sm"
+                : "text-[#6B6760] hover:text-[#2A2724]"
             }`}
           >
             Camera Scanner
@@ -512,10 +512,10 @@ export default function TrainerAttendancePage() {
           <div
             className={`p-3.5 rounded-xl text-xs font-bold flex items-center gap-2 ${
               isSuccess === true
-                ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+                ? "bg-[#1F9D55]/10 border border-[#1F9D55]/30 text-[#17803F]"
                 : isSuccess === false
-                ? "bg-rose-500/10 border border-rose-500/30 text-rose-400"
-                : "bg-slate-800 text-slate-300"
+                ? "bg-[#D93636]/10 border border-[#D93636]/30 text-[#C42B2B]"
+                : "bg-[#F1EDE7] text-[#4A4640]"
             }`}
           >
             {isSuccess === true && <IconCheck size={18} className="shrink-0" />}
@@ -527,20 +527,20 @@ export default function TrainerAttendancePage() {
 
         {/* VIEW 1: TRAINER DUTY PASS (DEFAULT) */}
         {viewMode === "pass" && (
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 sm:p-8 space-y-6 text-center shadow-2xl">
+          <div className="hero-dark rounded-2xl border border-white/10 p-6 sm:p-8 space-y-6 text-center shadow-md">
             <div className="space-y-1">
-              <span className="text-xs uppercase font-extrabold tracking-wider text-teal-400">
+              <span className="text-xs font-bold tracking-wide text-[#FF5A1F]">
                 Staff Duty Access
               </span>
-              <h2 className="text-xl font-bold text-white">{trainerData.name}</h2>
-              <p className="text-xs text-slate-400">
+              <h2 className="text-3xl font-bold text-white font-display">{trainerData.name}</h2>
+              <p className="text-xs text-white/60">
                 {trainerData.specialization} · Total Shifts:{" "}
-                <strong className="text-slate-200">{trainerData.totalSessions}</strong>
+                <strong className="text-white">{trainerData.totalSessions}</strong>
               </p>
             </div>
 
             {/* QR CODE CONTAINER */}
-            <div className="p-4 bg-white rounded-2xl shadow-xl inline-block border-4 border-teal-500/30">
+            <div className="p-4 bg-white rounded-2xl inline-block border-4 border-[#FF5A1F]">
               {qrCodeDataUrl ? (
                 <img
                   src={qrCodeDataUrl}
@@ -548,25 +548,25 @@ export default function TrainerAttendancePage() {
                   className="w-56 h-56 mx-auto block rounded-lg"
                 />
               ) : (
-                <div className="w-56 h-56 flex items-center justify-center text-slate-400">
+                <div className="w-56 h-56 flex items-center justify-center text-[#6B6760]">
                   <IconRefresh className="animate-spin" size={32} />
                 </div>
               )}
             </div>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-xs mx-auto">
+            <p className="text-xs text-white/55 leading-relaxed max-w-xs mx-auto">
               Present this QR code to the entrance reader to log coaching shift hours.
             </p>
 
-            <div className="pt-2 border-t border-slate-800">
+            <div className="pt-2 border-t border-white/10">
               <button
                 type="button"
                 onClick={() => handleLogShift()}
                 disabled={processing}
-                className={`w-full py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg ${
+                className={`w-full py-3.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-md ${
                   currentStatus === "IN"
-                    ? "bg-rose-500 hover:bg-rose-400 text-white shadow-rose-500/20"
-                    : "btn-emerald w-full py-3.5 shadow-teal-500/20"
+                    ? "bg-[#D93636] hover:bg-[#E04B4B] text-white shadow-[#141414]/10"
+                    : "btn-emerald w-full py-3.5 shadow-[#141414]/10"
                 } disabled:opacity-50`}
               >
                 {processing
@@ -581,33 +581,33 @@ export default function TrainerAttendancePage() {
 
         {/* VIEW 2: CAMERA SCANNER (DIRECT ACTIVATION + PERMISSIONS PROMPT) */}
         {viewMode === "camera" && (
-          <div className="bg-[#0f172a] rounded-2xl border border-slate-800 p-6 space-y-5 shadow-2xl">
+          <div className="bg-[#FFFFFF] rounded-2xl border border-[#ECE7E0] p-6 space-y-5 shadow-md">
             <div className="text-center">
-              <h3 className="text-lg font-bold text-white">Scan Facility Shift QR</h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <h3 className="text-xl font-bold text-[#141414] font-display">Scan Facility Shift QR</h3>
+              <p className="text-xs text-[#6B6760] mt-0.5">
                 Align the physical entrance QR code in your camera view.
               </p>
             </div>
 
             {/* CAMERA PERMISSION ERROR / FALLBACK BANNER */}
             {cameraError && (
-              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-3">
+              <div className="p-4 rounded-xl bg-[#E0A100]/10 border border-[#E0A100]/30 text-[#8A6100] text-xs space-y-3">
                 <div className="flex items-start gap-2.5">
-                  <IconAlertCircle size={18} className="shrink-0 text-amber-400 mt-0.5" />
+                  <IconAlertCircle size={18} className="shrink-0 text-[#8A6100] mt-0.5" />
                   <p className="leading-relaxed">{cameraError}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={startCameraScanner}
-                    className="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer text-center"
+                    className="py-2.5 px-3 rounded-xl bg-[#E0A100] hover:bg-[#E0A100] text-[#141414] font-bold text-xs tracking-wide transition-all cursor-pointer text-center"
                   >
                     Grant Camera Access & Retry
                   </button>
                   <button
                     type="button"
                     onClick={() => document.getElementById("trainer-native-camera-input")?.click()}
-                    className="py-2.5 px-3 rounded-xl btn-emerald text-xs uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    className="py-2.5 px-3 rounded-xl btn-emerald text-xs tracking-wide transition-all cursor-pointer flex items-center justify-center gap-1.5"
                   >
                     <IconCamera size={14} />
                     <span>Open Phone Camera</span>
@@ -617,13 +617,13 @@ export default function TrainerAttendancePage() {
             )}
 
             {/* VIEWFINDER */}
-            <div className="relative rounded-2xl overflow-hidden bg-black border border-slate-800 min-h-[260px] flex items-center justify-center shadow-inner">
+            <div className="relative rounded-2xl overflow-hidden bg-[#141414] border border-[#ECE7E0] min-h-[260px] flex items-center justify-center shadow-inner">
               <div id="trainer-reader" className="w-full" style={{ opacity: processing ? 0.3 : 1 }} />
               {!isCameraActive && !cameraError && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-slate-950/80 text-slate-400 p-4 text-center">
-                  <IconRefresh className="animate-spin text-teal-400" size={24} />
-                  <p className="text-xs font-semibold text-slate-200">Requesting Camera Access...</p>
-                  <p className="text-[11px] text-slate-400">Please tap &ldquo;Allow&rdquo; on the browser prompt.</p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#141414]/60 text-[#6B6760] p-4 text-center">
+                  <IconRefresh className="animate-spin text-[#C93E0B]" size={24} />
+                  <p className="text-xs font-semibold text-[#2A2724]">Requesting Camera Access...</p>
+                  <p className="text-[11px] text-[#6B6760]">Please tap &ldquo;Allow&rdquo; on the browser prompt.</p>
                 </div>
               )}
             </div>
@@ -632,7 +632,7 @@ export default function TrainerAttendancePage() {
             <button
               type="button"
               onClick={() => document.getElementById("trainer-native-camera-input")?.click()}
-              className="btn-emerald w-full py-3.5 flex items-center justify-center gap-2 shadow-lg shadow-teal-500/20 cursor-pointer"
+              className="btn-emerald w-full py-3.5 flex items-center justify-center gap-2 shadow-md shadow-[#141414]/10 cursor-pointer"
             >
               <IconCamera size={18} />
               <span>Open Phone Camera (Tap to Scan)</span>
@@ -649,9 +649,9 @@ export default function TrainerAttendancePage() {
             {/* UPLOAD FILE FALLBACK */}
             <div
               onClick={() => document.getElementById("trainer-file-upload")?.click()}
-              className="p-3.5 rounded-xl border border-dashed border-slate-700 hover:border-teal-500/50 bg-slate-900/60 text-center cursor-pointer transition-all flex items-center justify-center gap-2 text-xs font-semibold text-slate-300 hover:text-white"
+              className="p-3.5 rounded-xl border border-dashed border-[#E0D9CF] hover:border-[#FF5A1F]/50 bg-[#F7F4EF]/60 text-center cursor-pointer transition-all flex items-center justify-center gap-2 text-xs font-semibold text-[#4A4640] hover:text-[#141414]"
             >
-              <IconUpload size={16} className="text-teal-400" />
+              <IconUpload size={16} className="text-[#C93E0B]" />
               <span>Or Upload QR Code Screenshot</span>
               <input
                 id="trainer-file-upload"
@@ -667,32 +667,32 @@ export default function TrainerAttendancePage() {
 
       {/* ANIMATED ACKNOWLEDGMENT MODAL (PREVENTS INFINITE LOOP) */}
       {ackModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="bg-[#0f172a] border border-slate-700/80 rounded-3xl max-w-sm w-full p-6 sm:p-7 text-center shadow-2xl space-y-5 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#141414]/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="bg-[#FFFFFF] border border-[#E0D9CF]/80 rounded-2xl max-w-sm w-full p-6 sm:p-7 text-center shadow-md space-y-5 animate-in zoom-in-95 duration-200">
             {/* ANIMATED PULSING ICON */}
             <div className="flex justify-center pt-2">
               {ackModal.title.includes("FAILED") ? (
-                <div className="w-20 h-20 rounded-full bg-rose-500/20 border-4 border-rose-500 flex items-center justify-center shadow-lg shadow-rose-500/30 animate-bounce">
-                  <IconAlertCircle size={44} className="text-rose-400" />
+                <div className="w-20 h-20 rounded-full bg-[#D93636]/20 border-4 border-[#D93636] flex items-center justify-center shadow-md shadow-[#141414]/10 animate-bounce">
+                  <IconAlertCircle size={44} className="text-[#C42B2B]" />
                 </div>
               ) : ackModal.action === "check-in" ? (
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-teal-500/20 border-4 border-teal-400 flex items-center justify-center shadow-lg shadow-teal-500/30 animate-pulse">
-                    <IconCheck size={44} className="text-teal-400" />
+                  <div className="w-20 h-20 rounded-full bg-[#FF5A1F]/20 border-4 border-[#FF5A1F] flex items-center justify-center shadow-md shadow-[#141414]/10 animate-pulse">
+                    <IconCheck size={44} className="text-[#C93E0B]" />
                   </div>
                   <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-teal-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5A1F] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-[#FF5A1F]"></span>
                   </span>
                 </div>
               ) : (
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-cyan-500/20 border-4 border-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/30 animate-pulse">
-                    <IconClock size={40} className="text-cyan-400" />
+                  <div className="w-20 h-20 rounded-full bg-[#2F6FED]/20 border-4 border-[#2F6FED] flex items-center justify-center shadow-md shadow-[#141414]/10 animate-pulse">
+                    <IconClock size={40} className="text-[#1F57C9]" />
                   </div>
                   <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-cyan-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2F6FED] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-[#2F6FED]"></span>
                   </span>
                 </div>
               )}
@@ -701,41 +701,41 @@ export default function TrainerAttendancePage() {
             {/* TITLE & DETAILS */}
             <div className="space-y-1.5">
               <span
-                className={`text-[11px] uppercase font-extrabold tracking-widest block ${
+                className={`text-[11px] font-bold tracking-wide block ${
                   ackModal.title.includes("FAILED")
-                    ? "text-rose-400"
+                    ? "text-[#C42B2B]"
                     : ackModal.action === "check-in"
-                    ? "text-teal-400"
-                    : "text-cyan-400"
+                    ? "text-[#C93E0B]"
+                    : "text-[#1F57C9]"
                 }`}
               >
                 {ackModal.title}
               </span>
-              <h3 className="text-xl font-extrabold text-white">
+              <h3 className="text-2xl font-bold text-[#141414] font-display">
                 {ackModal.action === "check-in" ? "Duty Shift Started!" : "Duty Shift Ended!"}
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed max-w-xs mx-auto pt-1">
+              <p className="text-xs text-[#4A4640] leading-relaxed max-w-xs mx-auto pt-1">
                 {ackModal.message}
               </p>
             </div>
 
             {/* EVENT DETAILS CARD */}
-            <div className="bg-slate-900/90 rounded-2xl p-3.5 border border-slate-800 text-xs space-y-2 text-left">
-              <div className="flex items-center justify-between text-slate-400">
+            <div className="bg-white/90 rounded-2xl p-3.5 border border-[#ECE7E0] text-xs space-y-2 text-left">
+              <div className="flex items-center justify-between text-[#6B6760]">
                 <span>Staff Member</span>
-                <strong className="text-white font-semibold">{trainerData.name}</strong>
+                <strong className="text-[#141414] font-semibold">{trainerData.name}</strong>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-[#6B6760]">
                 <span>Specialization</span>
-                <strong className="text-slate-200">{trainerData.specialization}</strong>
+                <strong className="text-[#2A2724]">{trainerData.specialization}</strong>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-[#6B6760]">
                 <span>Shift Time</span>
-                <strong className="text-slate-200">{ackModal.time}</strong>
+                <strong className="text-[#2A2724]">{ackModal.time}</strong>
               </div>
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-[#6B6760]">
                 <span>Gate Facility</span>
-                <strong className="text-teal-400">Staff Shift Gate</strong>
+                <strong className="text-[#C93E0B]">Staff Shift Gate</strong>
               </div>
             </div>
 
@@ -743,12 +743,12 @@ export default function TrainerAttendancePage() {
             <button
               type="button"
               onClick={handleCloseAckModal}
-              className={`w-full py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer ${
+              className={`w-full py-3.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-md cursor-pointer ${
                 ackModal.title.includes("FAILED")
-                  ? "bg-rose-500 hover:bg-rose-400 text-white shadow-rose-500/25"
+                  ? "bg-[#D93636] hover:bg-[#E04B4B] text-white shadow-[#141414]/10"
                   : ackModal.action === "check-in"
-                  ? "btn-emerald shadow-teal-500/25"
-                  : "bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-cyan-500/25"
+                  ? "btn-emerald shadow-[#141414]/10"
+                  : "bg-[#2F6FED] hover:bg-[#2F6FED] text-white shadow-[#141414]/10"
               }`}
             >
               Done & Return to My Pass

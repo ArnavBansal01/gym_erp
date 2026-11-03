@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Poppins, Montserrat } from "next/font/google";
+import { Geist, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 
-// Load fonts
-const poppins = Poppins({
+// Body font: clean geometric sans. Display font: condensed athletic grotesk.
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
-  variable: "--font-poppins",
+  variable: "--font-geist",
+  display: "swap",
 });
 
-const montserrat = Montserrat({
+const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-montserrat",
+  weight: ["500", "600", "700"],
+  variable: "--font-barlow",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${montserrat.variable}`}>
+      <body className={`${geist.variable} ${barlowCondensed.variable}`}>
         {children}
       </body>
     </html>

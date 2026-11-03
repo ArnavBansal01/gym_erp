@@ -2,27 +2,68 @@
 @source "../app";
 @source "../lib";
 
+/* ------------------------------------------------------------------
+   Iconic Gym Karnal — design tokens
+   Direction: modern gym fitness, orange + white.
+   One brand colour (orange). Dark (#141414) is used only for hero blocks.
+   Primary buttons are orange with DARK text (white-on-orange fails contrast).
+   ------------------------------------------------------------------ */
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-barlow), "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+
+  --color-canvas: #FAF8F5;
+  --color-ink: #141414;
+  --color-brand: #FF5A1F;
+  --color-brand-hover: #FF7A45;
+  --color-brand-pressed: #E64A12;
+  --color-brand-tint: #FFF0E8;
+  --color-brand-text: #C93E0B;
+  --color-hairline: #ECE7E0;
+  --color-status-active: #1F9D55;
+  --color-status-expiring: #E0A100;
+  --color-status-expired: #D93636;
+  --color-status-info: #2F6FED;
+}
+
 :root {
-  --font-poppins: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-montserrat: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  --bg-main: #090d16;
-  --bg-card: #0f172a;
-  --bg-card-hover: #1e293b;
-  --border-subtle: #1e293b;
-  --border-active: #334155;
-  
-  --accent-emerald: #10b981;
-  --accent-emerald-hover: #059669;
-  --accent-emerald-glow: rgba(16, 185, 129, 0.25);
-  
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  
-  --status-active: #10b981;
-  --status-warning: #f59e0b;
-  --status-danger: #ef4444;
+  --canvas: #FAF8F5;
+  --surface: #FFFFFF;
+  --surface-2: #F7F4EF;
+  --surface-3: #F1EDE7;
+  --hairline: #ECE7E0;
+  --hairline-strong: #E0D9CF;
+
+  --ink: #141414;
+  --text-secondary: #6B6760;
+  --text-muted: #7A756D;
+
+  --brand: #FF5A1F;
+  --brand-hover: #FF7A45;
+  --brand-pressed: #E64A12;
+  --brand-tint: #FFF0E8;
+  --brand-text: #C93E0B;
+
+  --status-active: #1F9D55;
+  --status-warning: #E0A100;
+  --status-danger: #D93636;
+  --status-info: #2F6FED;
+
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --shadow-soft: 0 1px 2px rgba(20, 20, 20, 0.04), 0 1px 1px rgba(20, 20, 20, 0.03);
+
+  /* legacy names kept so nothing that still reads them breaks */
+  --bg-main: var(--canvas);
+  --bg-card: var(--surface);
+  --bg-card-hover: var(--surface-2);
+  --border-subtle: var(--hairline);
+  --border-active: var(--hairline-strong);
+  --accent-emerald: var(--brand);
+  --accent-emerald-hover: var(--brand-hover);
+  --accent-emerald-glow: transparent;
+  --text-primary: var(--ink);
 }
 
 * {
@@ -32,10 +73,12 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #090d16;
-  color: #f8fafc;
-  font-family: var(--font-poppins);
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
 }
 
 @layer base {
@@ -43,102 +86,146 @@ body {
     cursor: pointer;
     font-family: inherit;
   }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.005em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: var(--ink);
+  }
 }
 
-/* Custom Sleek Scrollbar */
+/* Light scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: var(--canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
+  background: #D5CEC3;
+  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #BDB6AB;
 }
 
-/* Card System */
+/* ---------- Card ---------- */
 .gym-card {
-  background-color: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 16px;
+  background-color: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
   padding: 24px;
-  transition: all 0.2s ease;
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .gym-card:hover {
-  border-color: #334155;
+  border-color: var(--hairline-strong);
 }
 
-/* Form Inputs */
-.gym-input, .gym-select {
+/* ---------- Form fields ---------- */
+.gym-input,
+.gym-select {
   width: 100%;
-  padding: 12px 14px;
-  background-color: #0b1120;
-  border: 1px solid #1e293b;
-  border-radius: 10px;
-  color: #f8fafc;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
+  min-height: 44px;
+  padding: 11px 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out;
   outline: none;
 }
-.gym-input:focus, .gym-select:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+.gym-input:hover,
+.gym-select:hover {
+  border-color: #D0C8BC;
+}
+.gym-input:focus,
+.gym-select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.22);
 }
 .gym-input::placeholder {
-  color: #64748b;
+  color: #A09A92;
 }
 
-/* Highly Visible Buttons */
+/* ---------- Buttons ---------- */
+/* Primary: orange fill, DARK text */
 .btn-emerald {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #10b981 !important;
-  color: #042f2e !important;
-  font-weight: 800 !important;
-  font-size: 0.75rem !important;
+  min-height: 44px;
+  background-color: var(--brand) !important;
+  color: var(--ink) !important;
+  font-weight: 700 !important;
+  font-size: 0.9375rem !important;
   padding: 10px 20px !important;
-  border-radius: 12px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
-  transition: all 0.2s ease !important;
-  border: 1px solid #34d399 !important;
+  border-radius: var(--radius-control) !important;
+  box-shadow: none !important;
+  border: 1px solid transparent !important;
+  transition: background-color 0.15s ease-out, transform 0.15s ease-out !important;
   cursor: pointer !important;
 }
 .btn-emerald:hover {
-  background-color: #059669 !important;
-  color: #ffffff !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45) !important;
+  background-color: var(--brand-hover) !important;
+  color: var(--ink) !important;
+}
+.btn-emerald:active {
+  background-color: var(--brand-pressed) !important;
+  transform: scale(0.985);
 }
 
+/* Secondary: white with hairline */
 .btn-slate {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #1e293b !important;
-  color: #f8fafc !important;
-  font-weight: 700 !important;
-  font-size: 0.75rem !important;
+  min-height: 44px;
+  background-color: var(--surface) !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
   padding: 10px 18px !important;
-  border-radius: 12px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  border: 1px solid #475569 !important;
-  transition: all 0.2s ease !important;
+  border-radius: var(--radius-control) !important;
+  border: 1px solid var(--hairline-strong) !important;
+  transition: background-color 0.15s ease-out, border-color 0.15s ease-out !important;
   cursor: pointer !important;
 }
 .btn-slate:hover {
-  background-color: #334155 !important;
-  border-color: #64748b !important;
-  color: #ffffff !important;
-  transform: translateY(-1px) !important;
+  background-color: var(--surface-2) !important;
+  border-color: #CFC7BB !important;
+  color: var(--ink) !important;
+}
+
+/* ---------- Dark hero block (member pass header, banners) ---------- */
+.hero-dark {
+  background-color: var(--ink);
+  color: #FFFFFF;
+}
+.hero-dark .hero-accent {
+  color: var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

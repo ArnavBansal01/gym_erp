@@ -277,20 +277,20 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-slate-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#141414] flex flex-col justify-between selection:bg-[#FF5A1F] selection:text-[#141414]">
       {/* ==================== TOP HEADER ==================== */}
-      <header className="border-b border-slate-800/80 bg-[#0c1220]/80 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+      <header className="border-b border-[#ECE7E0]/80 bg-white/80 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* LOGO & GYM TITLE */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-600 to-slate-900 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 ring-1 ring-emerald-500/30">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF5A1F] via-[#FF5A1F] to-[#FFFFFF] flex items-center justify-center text-[#141414] shadow-md shadow-[#141414]/10 ring-1 ring-[#FF5A1F]/30">
               <IconDumbbell size={22} />
             </div>
             <div>
-              <span className="font-extrabold tracking-wider text-base uppercase text-white block leading-tight">
+              <span className="font-bold tracking-wide text-base text-[#141414] block leading-tight">
                 Iconic Gym
               </span>
-              <span className="text-[11px] text-emerald-400 font-semibold tracking-wide">
+              <span className="text-[11px] text-[#C93E0B] font-semibold tracking-wide">
                 Karnal Fitness Club
               </span>
             </div>
@@ -301,7 +301,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => router.push("/admin")}
-              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/30 hover:border-amber-500/70 text-amber-400 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+              className="px-4 py-2 rounded-xl bg-[#F7F4EF] hover:bg-[#F1EDE7] border border-[#D8D0C5] hover:border-[#BDB6AB] text-[#2A2724] text-sm font-bold tracking-wide transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
               title="Admin ERP Login"
             >
               <IconShield size={15} />
@@ -315,21 +315,21 @@ export default function Home() {
       <main className="max-w-5xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center items-center w-full">
         {/* ACTIVE SESSION BANNER */}
         {activeSession && (
-          <div className="w-full max-w-2xl mb-8 p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/30 shadow-xl backdrop-blur-md flex items-center justify-between gap-4">
+          <div className="w-full max-w-2xl mb-8 p-4 rounded-2xl bg-white/90 border border-[#FF5A1F]/30 shadow-md backdrop-blur-md flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-[#FF5A1F]/20 text-[#C93E0B] flex items-center justify-center font-bold">
                 {activeSession.user.role === "trainer" ? "TR" : "MB"}
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs uppercase font-bold text-white">
+                  <span className="text-xs font-bold text-[#141414]">
                     {activeSession.name}
                   </span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="px-2 py-0.5 rounded text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                     {activeSession.user.role}
                   </span>
                 </div>
-                <span className="text-xs text-slate-400">{activeSession.email}</span>
+                <span className="text-xs text-[#6B6760]">{activeSession.email}</span>
               </div>
             </div>
 
@@ -349,14 +349,14 @@ export default function Home() {
                     router.push("/dashboard");
                   }
                 }}
-                className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all cursor-pointer"
               >
                 Go to Portal &rarr;
               </button>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-[#F1EDE7] hover:bg-[#E4DED5] text-[#6B6760] hover:text-[#141414] transition-all cursor-pointer"
                 title="Sign Out"
               >
                 <IconLogOut size={16} />
@@ -367,13 +367,13 @@ export default function Home() {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div className="w-full max-w-2xl mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-3">
-            <IconAlertCircle size={18} className="shrink-0 text-rose-400" />
+          <div className="w-full max-w-2xl mb-6 p-4 rounded-xl bg-[#D93636]/10 border border-[#D93636]/30 text-[#C42B2B] text-xs flex items-center gap-3">
+            <IconAlertCircle size={18} className="shrink-0 text-[#C42B2B]" />
             <span className="flex-1">{error}</span>
             <button
               type="button"
               onClick={() => setError("")}
-              className="text-slate-400 hover:text-white"
+              className="text-[#6B6760] hover:text-[#141414]"
             >
               <IconX size={16} />
             </button>
@@ -382,16 +382,16 @@ export default function Home() {
 
         {/* REJECTED COACH NOTICE */}
         {rejectedTrainer && (
-          <div className="w-full max-w-2xl mb-6 p-5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-center space-y-2">
-            <IconAlertCircle size={24} className="mx-auto text-rose-400" />
-            <h4 className="text-sm font-bold text-white">Application Not Approved</h4>
-            <p className="text-xs text-slate-400">
+          <div className="w-full max-w-2xl mb-6 p-5 rounded-xl bg-[#D93636]/10 border border-[#D93636]/30 text-center space-y-2">
+            <IconAlertCircle size={24} className="mx-auto text-[#C42B2B]" />
+            <h4 className="text-sm font-bold text-[#141414]">Application Not Approved</h4>
+            <p className="text-xs text-[#6B6760]">
               Your application to join the coaching staff has been declined by gym management.
             </p>
             <button
               type="button"
               onClick={handleLogout}
-              className="mt-2 px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold"
+              className="mt-2 px-4 py-1.5 rounded-lg bg-[#F1EDE7] hover:bg-[#E4DED5] text-xs text-[#4A4640] font-semibold"
             >
               Sign Out
             </button>
@@ -400,13 +400,13 @@ export default function Home() {
 
         {/* SECTION TITLE */}
         <div className="text-center mb-10 space-y-2">
-          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block mb-1">
+          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20 inline-block mb-1">
             Sign In Portal
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold text-[#141414] tracking-tight font-display">
             Choose Your Account
           </h1>
-          <p className="text-slate-400 text-xs sm:text-sm max-w-md mx-auto">
+          <p className="text-[#6B6760] text-xs sm:text-sm max-w-md mx-auto">
             Please select whether you are accessing as a gym member or as coaching staff.
           </p>
         </div>
@@ -414,40 +414,40 @@ export default function Home() {
         {/* ==================== TWO ROLE CARDS ==================== */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
           {/* CARD 1: MEMBER */}
-          <div className="relative rounded-2xl bg-[#0f172a]/90 border border-slate-800 hover:border-emerald-500/50 p-7 flex flex-col justify-between transition-all duration-300 group hover:shadow-2xl hover:shadow-emerald-500/10">
+          <div className="relative rounded-2xl bg-[#FFFFFF]/90 border border-[#ECE7E0] hover:border-[#FF5A1F]/50 p-7 flex flex-col justify-between transition-all duration-300 group hover:shadow-md hover:shadow-[#141414]/10">
             <div className="space-y-5">
               {/* CARD TOP BADGE & ICON */}
               <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-[#C93E0B] flex items-center justify-center group-hover:scale-105 transition-transform">
                   <IconUser size={24} />
                 </div>
-                <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                   Member
                 </span>
               </div>
 
               {/* CARD TITLE & DESCRIPTION */}
               <div>
-                <h2 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                <h2 className="text-2xl font-bold text-[#141414] group-hover:text-[#C93E0B] transition-colors font-display">
                   Member Portal
                 </h2>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                <p className="text-xs text-[#6B6760] mt-1 leading-relaxed">
                   Access your active subscription, scan digital QR passes, and check coach guidance.
                 </p>
               </div>
 
               {/* FEATURES BULLETS */}
-              <ul className="space-y-2 pt-2 border-t border-slate-800/80 text-xs text-slate-300">
+              <ul className="space-y-2 pt-2 border-t border-[#ECE7E0]/80 text-xs text-[#4A4640]">
                 <li className="flex items-center gap-2">
-                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span className="text-[#C93E0B] font-bold">✓</span>
                   <span>Personal Membership & Renewal Stats</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span className="text-[#C93E0B] font-bold">✓</span>
                   <span>Instant Digital Gate QR Pass</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span className="text-[#C93E0B] font-bold">✓</span>
                   <span>Assigned Certified Coach Details</span>
                 </li>
               </ul>
@@ -459,7 +459,7 @@ export default function Home() {
                 type="button"
                 onClick={() => handleRoleLogin("member")}
                 disabled={loadingRole !== null}
-                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-all shadow-lg shadow-white/5 cursor-pointer disabled:opacity-50"
+                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-[#F7F4EF] border border-[#D8D0C5] text-[#141414] font-bold text-sm tracking-wide flex items-center justify-center gap-3 transition-all cursor-pointer disabled:opacity-50"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24">
                   <path
@@ -484,7 +484,7 @@ export default function Home() {
                 </span>
               </button>
 
-              <p className="text-center text-[11px] text-slate-500">
+              <p className="text-center text-[11px] text-[#7A756D]">
                 New member?{" "}
                 <button
                   type="button"
@@ -492,7 +492,7 @@ export default function Home() {
                     setError("");
                     setShowMemberModal(true);
                   }}
-                  className="text-emerald-400 font-bold hover:underline cursor-pointer"
+                  className="text-[#C93E0B] font-bold hover:underline cursor-pointer"
                 >
                   Join as a Member
                 </button>
@@ -501,40 +501,40 @@ export default function Home() {
           </div>
 
           {/* CARD 2: TRAINER */}
-          <div className="relative rounded-2xl bg-[#0f172a]/90 border border-slate-800 hover:border-teal-500/50 p-7 flex flex-col justify-between transition-all duration-300 group hover:shadow-2xl hover:shadow-teal-500/10">
+          <div className="relative rounded-2xl bg-[#FFFFFF]/90 border border-[#ECE7E0] hover:border-[#FF5A1F]/50 p-7 flex flex-col justify-between transition-all duration-300 group hover:shadow-md hover:shadow-[#141414]/10">
             <div className="space-y-5">
               {/* CARD TOP BADGE & ICON */}
               <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-[#C93E0B] flex items-center justify-center group-hover:scale-105 transition-transform">
                   <IconUsers size={24} />
                 </div>
-                <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                   Trainer
                 </span>
               </div>
 
               {/* CARD TITLE & DESCRIPTION */}
               <div>
-                <h2 className="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">
+                <h2 className="text-2xl font-bold text-[#141414] group-hover:text-[#C93E0B] transition-colors font-display">
                   Trainer Terminal
                 </h2>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                <p className="text-xs text-[#6B6760] mt-1 leading-relaxed">
                   Manage assigned fitness clients, review workout performance, and log coaching shifts.
                 </p>
               </div>
 
               {/* FEATURES BULLETS */}
-              <ul className="space-y-2 pt-2 border-t border-slate-800/80 text-xs text-slate-300">
+              <ul className="space-y-2 pt-2 border-t border-[#ECE7E0]/80 text-xs text-[#4A4640]">
                 <li className="flex items-center gap-2">
-                  <span className="text-teal-400 font-bold">✓</span>
+                  <span className="text-[#C93E0B] font-bold">✓</span>
                   <span>Assigned Trainee Rosters & Goals</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-teal-400 font-bold">✓</span>
+                  <span className="text-[#C93E0B] font-bold">✓</span>
                   <span>Duty Shift Check-In & Attendance</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-teal-400 font-bold">✓</span>
+                  <span className="text-[#C93E0B] font-bold">✓</span>
                   <span>Workout Logs & Performance Feedback</span>
                 </li>
               </ul>
@@ -546,7 +546,7 @@ export default function Home() {
                 type="button"
                 onClick={() => handleRoleLogin("trainer")}
                 disabled={loadingRole !== null}
-                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-all shadow-lg shadow-teal-500/10 cursor-pointer disabled:opacity-50"
+                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#FF5A1F] to-[#FF5A1F] hover:from-[#FF7A45] hover:to-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide flex items-center justify-center gap-3 transition-all shadow-md shadow-[#141414]/10 cursor-pointer disabled:opacity-50"
               >
                 <IconShield size={16} />
                 <span>
@@ -554,7 +554,7 @@ export default function Home() {
                 </span>
               </button>
 
-              <p className="text-center text-[11px] text-slate-500">
+              <p className="text-center text-[11px] text-[#7A756D]">
                 Want to coach here?{" "}
                 <button
                   type="button"
@@ -562,7 +562,7 @@ export default function Home() {
                     setError("");
                     setShowTrainerModal(true);
                   }}
-                  className="text-teal-400 font-bold hover:underline cursor-pointer"
+                  className="text-[#C93E0B] font-bold hover:underline cursor-pointer"
                 >
                   Apply as Coach
                 </button>
@@ -573,37 +573,37 @@ export default function Home() {
       </main>
 
       {/* ==================== FOOTER ==================== */}
-      <footer className="border-t border-slate-800/60 py-6 px-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-[#ECE7E0]/60 py-6 px-6 text-center text-xs text-[#7A756D]">
         <p>© 2026 Iconic Gym Karnal · Professional Fitness Club Management ERP</p>
       </footer>
 
       {/* ==================== MODAL: JOIN AS A MEMBER ==================== */}
       {showMemberModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-lg p-6 sm:p-7 shadow-2xl space-y-5 relative max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-[#141414]/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#FFFFFF] border border-[#ECE7E0] rounded-2xl w-full max-w-lg p-6 sm:p-7 shadow-md space-y-5 relative max-h-[90vh] overflow-y-auto">
             {/* CLOSE BUTTON */}
             <button
               type="button"
               onClick={() => setShowMemberModal(false)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 text-[#6B6760] hover:text-[#141414] p-1 rounded-lg hover:bg-[#F1EDE7] transition-colors cursor-pointer"
             >
               <IconX size={20} />
             </button>
 
             <div>
-              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
+              <div className="flex items-center gap-2 text-[#C93E0B] text-xs font-bold tracking-wide mb-1">
                 <IconUser size={16} />
                 <span>Member Registration</span>
               </div>
-              <h3 className="text-xl font-bold text-white">Join as a Member</h3>
-              <p className="text-xs text-slate-400">
+              <h3 className="text-2xl font-bold text-[#141414] font-display">Join as a Member</h3>
+              <p className="text-xs text-[#6B6760]">
                 Select your subscription tier and assigned personal coach.
               </p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Full Name
                 </label>
                 <input
@@ -617,7 +617,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Contact Phone
                 </label>
                 <input
@@ -631,7 +631,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Select Membership Tier
                 </label>
                 <div className="grid grid-cols-3 gap-2.5">
@@ -642,17 +642,17 @@ export default function Home() {
                       onClick={() => setFormData({ ...formData, selectedPlan: plan })}
                       className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                         formData.selectedPlan.id === plan.id
-                          ? "bg-emerald-500/10 border-emerald-500 text-white"
-                          : "bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700"
+                          ? "bg-[#FF5A1F]/10 border-[#FF5A1F] text-[#141414]"
+                          : "bg-[#F7F4EF] border-[#ECE7E0] text-[#6B6760] hover:border-[#E0D9CF]"
                       }`}
                     >
-                      <span className="block text-[10px] font-bold text-emerald-400 uppercase">
+                      <span className="block text-[11px] font-bold text-[#C93E0B]">
                         {plan.durationMonths} Mo
                       </span>
-                      <span className="block text-sm font-bold text-white mt-0.5">
+                      <span className="block text-sm font-bold text-[#141414] mt-0.5">
                         ₹{plan.price}
                       </span>
-                      <span className="block text-[10px] text-slate-500 mt-1 truncate">
+                      <span className="block text-[11px] text-[#7A756D] mt-1 truncate">
                         {plan.tier}
                       </span>
                     </button>
@@ -661,7 +661,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Assigned Coach (Verified Trainers)
                 </label>
                 <select
@@ -680,7 +680,7 @@ export default function Home() {
                   ))}
                 </select>
                 {trainers.length === 0 && (
-                  <p className="text-[11px] text-amber-400 mt-1 flex items-center gap-1">
+                  <p className="text-[11px] text-[#8A6100] mt-1 flex items-center gap-1">
                     <IconAlertCircle size={12} />
                     <span>No personal coaches currently listed. General coach assigned.</span>
                   </p>
@@ -691,7 +691,7 @@ export default function Home() {
                 type="button"
                 onClick={() => submitRegistration("member")}
                 disabled={submitting || !formData.name || !formData.phone}
-                className="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 mt-2 shadow-md shadow-emerald-500/20 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all disabled:opacity-50 mt-2 shadow-md shadow-[#141414]/10 cursor-pointer"
               >
                 {submitting ? "Processing..." : "Complete Registration & Activate"}
               </button>
@@ -702,31 +702,31 @@ export default function Home() {
 
       {/* ==================== MODAL: APPLY AS COACH ==================== */}
       {showTrainerModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-lg p-6 sm:p-7 shadow-2xl space-y-5 relative max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-[#141414]/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#FFFFFF] border border-[#ECE7E0] rounded-2xl w-full max-w-lg p-6 sm:p-7 shadow-md space-y-5 relative max-h-[90vh] overflow-y-auto">
             {/* CLOSE BUTTON */}
             <button
               type="button"
               onClick={() => setShowTrainerModal(false)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+              className="absolute top-5 right-5 text-[#6B6760] hover:text-[#141414] p-1 rounded-lg hover:bg-[#F1EDE7] transition-colors cursor-pointer"
             >
               <IconX size={20} />
             </button>
 
             <div>
-              <div className="flex items-center gap-2 text-teal-400 text-xs font-bold uppercase tracking-wider mb-1">
+              <div className="flex items-center gap-2 text-[#C93E0B] text-xs font-bold tracking-wide mb-1">
                 <IconShield size={16} />
                 <span>Coach Verification</span>
               </div>
-              <h3 className="text-xl font-bold text-white">Apply as Coaching Staff</h3>
-              <p className="text-xs text-slate-400">
+              <h3 className="text-2xl font-bold text-[#141414] font-display">Apply as Coaching Staff</h3>
+              <p className="text-xs text-[#6B6760]">
                 Staff profiles enter a verification gate pending management approval.
               </p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Coach Full Name
                 </label>
                 <input
@@ -740,7 +740,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Contact Phone
                 </label>
                 <input
@@ -754,7 +754,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Primary Specialization
                 </label>
                 <select
@@ -771,7 +771,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase font-semibold text-slate-400 tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#6B6760] tracking-wide mb-1">
                   Certifications & Experience
                 </label>
                 <input
@@ -787,7 +787,7 @@ export default function Home() {
                 type="button"
                 onClick={() => submitRegistration("trainer")}
                 disabled={submitting || !formData.name || !formData.phone}
-                className="w-full py-3.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 mt-2 shadow-md shadow-teal-500/20 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-[#FF5A1F] hover:bg-[#FF7A45] text-[#141414] font-bold text-xs tracking-wide transition-all disabled:opacity-50 mt-2 shadow-md shadow-[#141414]/10 cursor-pointer"
               >
                 {submitting ? "Submitting..." : "Submit Trainer Application"}
               </button>
