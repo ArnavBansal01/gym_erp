@@ -5,14 +5,22 @@
 
 An all-in-one, role-based ERP and member access platform engineered for **AURA Athletic Club**. Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, and Google Firebase.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=for-the-badge&logo=next.js)](https://n  extjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.3-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Firebase](https://img.shields.io/badge/Firebase-v12-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
 [![Playwright](https://img.shields.io/badge/Playwright-E2E_Tests-2EAD33?style=for-the-badge&logo=playwright)](https://playwright.dev/)
 
+<br/>
+
 [Explore Portals](#-portal-walkthrough) • [System Architecture](#-system-architecture) • [Getting Started](#-getting-started) • [API Documentation](#-api-endpoints) • [Security & RBAC](#-security--rbac)
+
+<br/>
+
+<p align="center">
+  <img src="docs/after/home-desktop.png" alt="AURA Athletic Club UI Preview" width="850" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); max-width: 100%; height: auto;" />
+</p>
 
 </div>
 

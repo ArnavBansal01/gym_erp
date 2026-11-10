@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { adminAuth, adminDb, FieldValue } from '@/lib/firebaseAdmin';
 import { computeMembership } from '@/lib/membershipUtils';
 
+export const dynamic = 'force-dynamic';
+
 const VALID_GYM_IDS = ['AURA_CLUB_MAIN_ENTRANCE', 'AURA_CLUB_FLOOR_2'];
 
 export async function POST(request: Request) {

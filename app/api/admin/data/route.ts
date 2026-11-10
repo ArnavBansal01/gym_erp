@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { adminDb, FieldValue } from '@/lib/firebaseAdmin';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     // 1. Fetch Users
