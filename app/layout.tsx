@@ -17,8 +17,8 @@ const barlowCondensed = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: "Iconic Gym User Portal",
-  description: "User dashboard for Iconic Gym Karnal",
+  title: "AURA Athletic Club | Member Portal",
+  description: "Elite performance & fitness dashboard for AURA Athletic Club",
 };
 
 export default function RootLayout({

@@ -92,7 +92,7 @@ export default function UserPortal() {
               createdAt: new Date().toISOString(),
               assignedTrainer: null,
               rating: 5,
-              trainerNotes: "Welcome to Iconic Gym Karnal! Focus on consistency and proper form.",
+              trainerNotes: "Welcome to AURA Athletic Club! Focus on consistency and proper form.",
               attendanceCount: 1,
             });
             setLoading(false);
@@ -314,13 +314,13 @@ export default function UserPortal() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold tracking-wide text-base text-[#141414] block leading-tight">
-                  Iconic Gym
+                  AURA
                 </span>
                 <span className="px-2 py-0.5 rounded text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                   Member
                 </span>
               </div>
-              <span className="text-[11px] text-[#6B6760] font-medium">Karnal Performance Club</span>
+              <span className="text-[11px] text-[#6B6760] font-medium">Athletic Club</span>
             </div>
           </div>
 
@@ -427,10 +427,10 @@ export default function UserPortal() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
                       <div className="w-8 h-8 rounded-lg bg-[#FF5A1F] flex items-center justify-center text-[#141414] font-bold text-xs">
-                        IG
+                        AC
                       </div>
                       <span className="text-xs font-bold tracking-wide text-white/80">
-                        Iconic Gym Digital Pass
+                        AURA Club Digital Pass
                       </span>
                     </div>
 
@@ -810,7 +810,7 @@ export default function UserPortal() {
 
       {/* ==================== FOOTER ==================== */}
       <footer className="border-t border-[#ECE7E0]/60 py-6 px-6 text-center text-xs text-[#7A756D]">
-        <p>© 2026 Iconic Gym Karnal · Professional Fitness Club Management ERP</p>
+        <p>© 2026 AURA Athletic Club · Professional Fitness & Performance ERP</p>
       </footer>
 
       {/* ==================== RENEWAL MODAL ==================== */}

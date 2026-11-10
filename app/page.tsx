@@ -288,10 +288,10 @@ export default function Home() {
             </div>
             <div>
               <span className="font-bold tracking-wide text-base text-[#141414] block leading-tight">
-                Iconic Gym
+                AURA
               </span>
               <span className="text-[11px] text-[#C93E0B] font-semibold tracking-wide">
-                Karnal Fitness Club
+                Athletic Club
               </span>
             </div>
           </div>
@@ -574,7 +574,7 @@ export default function Home() {
 
       {/* ==================== FOOTER ==================== */}
       <footer className="border-t border-[#ECE7E0]/60 py-6 px-6 text-center text-xs text-[#7A756D]">
-        <p>© 2026 Iconic Gym Karnal · Professional Fitness Club Management ERP</p>
+        <p>© 2026 AURA Athletic Club · Professional Fitness & Performance ERP</p>
       </footer>
 
       {/* ==================== MODAL: JOIN AS A MEMBER ==================== */}

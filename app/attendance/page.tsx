@@ -82,7 +82,7 @@ export default function UserAttendance() {
         setCurrentStatus("OUT");
 
         const payload = JSON.stringify({
-          gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
+          gymId: "AURA_CLUB_MAIN_ENTRANCE",
           memberUid: demoUid,
           name: "Guest Member",
           action: "check-in",
@@ -103,7 +103,7 @@ export default function UserAttendance() {
       unsubscribeSnap = onSnapshot(userDocRef, (docSnap) => {
         if (!docSnap.exists()) {
           const payload = JSON.stringify({
-            gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
+            gymId: "AURA_CLUB_MAIN_ENTRANCE",
             memberUid: user.uid,
             name: user.displayName || "Member",
             action: "check-in",
@@ -136,7 +136,7 @@ export default function UserAttendance() {
 
         // Generate personal Member Pass QR Code
         const payload = JSON.stringify({
-          gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
+          gymId: "AURA_CLUB_MAIN_ENTRANCE",
           memberUid: user.uid,
           name: data.name || user.displayName || "Member",
           action: data.currentStatus === "IN" ? "check-out" : "check-in",
@@ -347,7 +347,7 @@ export default function UserAttendance() {
           Authorization: token || "",
         },
         body: JSON.stringify({
-          gymId: gymIdOverride || "ICONIC_GYM_KARNAL_ENTRANCE",
+          gymId: gymIdOverride || "AURA_CLUB_MAIN_ENTRANCE",
           action,
         }),
       });
@@ -362,7 +362,7 @@ export default function UserAttendance() {
         title: action === "check-in" ? "CHECK-IN CONFIRMED" : "CHECK-OUT RECORDED",
         message:
           action === "check-in"
-            ? `Welcome to Iconic Gym, ${userData.name}! Your entrance has been recorded. Have a powerful workout session!`
+            ? `Welcome to AURA Athletic Club, ${userData.name}! Your entrance has been recorded. Have a powerful workout session!`
             : `Goodbye, ${userData.name}! Your workout session has been completed and logged. Have a great day!`,
         time: new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }),
       });
