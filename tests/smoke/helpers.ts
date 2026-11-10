@@ -110,7 +110,7 @@ export async function mockHtml5Qrcode(page: Page) {
         proto.isScanning = false;
         proto.scanFileV2 = async () => ({
           decodedText: JSON.stringify({
-            gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
+            gymId: "AURA_CLUB_MAIN_ENTRANCE",
             memberUid: "test-member-uid-001",
             action: "check-in",
           }),

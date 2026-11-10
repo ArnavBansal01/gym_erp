@@ -1,9 +1,9 @@
 <div align="center">
 
-# 🏋️ Iconic Gym ERP
-### Enterprise Fitness Management & Digital Access System
+# ⚡ AURA Athletic Club ERP
+### High-Performance Fitness Management & Touchless Access Ecosystem
 
-An all-in-one, role-based ERP and member access platform engineered for **Iconic Gym Karnal**. Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, and Google Firebase.
+An all-in-one, role-based ERP and member access platform engineered for **AURA Athletic Club**. Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, and Google Firebase.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.3-blue?style=for-the-badge&logo=react)](https://react.dev/)
@@ -45,7 +45,7 @@ An all-in-one, role-based ERP and member access platform engineered for **Iconic
 
 ## 🚀 Overview
 
-**Iconic Gym ERP** bridges members, personal trainers, and gym front-desk operations into a unified real-time dashboard. The application replaces paper logs, physical punch cards, and fragmented spreadsheets with:
+**AURA Athletic Club ERP** connects members, elite personal trainers, and gym front-desk operations into a unified real-time dashboard. The application replaces legacy paper logs, physical punch cards, and fragmented spreadsheets with:
 
 - **Touchless QR Gate Passes** with live scanner terminals for members and staff.
 - **Dynamic Floor Headcount** showing active members currently working out.
@@ -59,7 +59,7 @@ An all-in-one, role-based ERP and member access platform engineered for **Iconic
 
 | Domain | Highlights |
 |---|---|
-| **Gate Access & Scans** | Real-time QR scanner with camera recognition (`html5-qrcode`), file upload fallback, sound effects, and anti-duplicate check-in protection. |
+| **Gate Access & Scans** | Real-time QR scanner with camera recognition (`html5-qrcode`), file upload fallback, audio chime feedback, and anti-duplicate check-in protection. |
 | **Membership Plans** | Automated multi-tier tracking (Basic, Pro, Elite), duration extensions, and renewal workflows. |
 | **Staff Governance** | Multi-state trainer approval funnel (`pending` ➔ `approved` / `rejected` / `revoked`). |
 | **Live Headcount** | Real-time active member & coach occupancy calculation updated instantly upon entry/exit. |
@@ -78,7 +78,7 @@ An all-in-one, role-based ERP and member access platform engineered for **Iconic
   - Approved Trainers ➔ `/trainer/dashboard`
   - Pending Trainers ➔ `/pending-approval`
   - Administrators ➔ `/admin`
-- Onboarding modal triggers for first-time sign-ups with plan selection and trainer pairing.
+- Onboarding modal triggers for first-time sign-ups with plan selection and coach pairing.
 
 ### 2. Member Dashboard & Gate Pass (`/dashboard`, `/attendance`)
 - **Digital Gate Pass**: Generates unique encrypted QR passes refreshed per session.
@@ -91,14 +91,14 @@ An all-in-one, role-based ERP and member access platform engineered for **Iconic
 - **Coaching Staff Dashboard**: Active client roster overview with contact cards.
 - **Performance Rating & Logs**: Record workout adherence ratings (1–5 stars) and confidential client notes (`/api/trainer/rate`).
 - **Staff Attendance**: Dedicated trainer check-in/out terminal ensuring staff hours are logged independently.
-- **Application Status Shield**: Clear review screens for applicant coaches awaiting gym management approval.
+- **Application Status Shield**: Clear review screens for applicant coaches awaiting club management approval.
 
 ### 4. Receptionist & Admin ERP (`/admin`)
 - **Reception Scanner Engine**: Front-desk camera scanner processing incoming and outgoing members with audio chime confirmation.
 - **Live Floor Control**: Real-time list of members currently on premises with manual 1-click toggle override.
 - **Member Directory**: Full member ledger with search, tier filtering, and membership extension triggers.
 - **Coach Approval Pipeline**: Review pending trainer applicants with 1-click Approve, Reject, or Revoke privileges.
-- **Expense & Revenue Tracker**: Add operational gym expenses (equipment, maintenance, utilities) and view net financials.
+- **Expense & Revenue Tracker**: Add operational club expenses (equipment, maintenance, utilities) and view net financials.
 
 ---
 
@@ -106,30 +106,30 @@ An all-in-one, role-based ERP and member access platform engineered for **Iconic
 
 ```mermaid
 flowchart TD
-    subgraph Client ["Client Layer (Next.js 16 + React 19)"]
-        Landing["Landing & Role Select\n(/)"]
-        MemberApp["Member Portal\n(/dashboard, /attendance)"]
-        TrainerApp["Trainer Portal\n(/trainer/dashboard, /trainer/attendance)"]
-        AdminERP["Admin ERP & Reception\n(/admin)"]
+    subgraph ClientApp["Client Application Layer (Next.js 16)"]
+        Landing["Universal Landing & Role Gateway"]
+        MemberApp["Member Portal & Dynamic Pass"]
+        TrainerApp["Trainer Portal & Client Roster"]
+        AdminERP["Admin ERP & Reception Terminal"]
     end
 
-    subgraph Auth ["Authentication & Identity"]
-        FirebaseAuth["Firebase Client Auth\n(Google OAuth)"]
-        AdminSession["Admin Session Gate\n(Secure SessionStorage)"]
+    subgraph AuthLayer["Identity & Access Management"]
+        FirebaseAuth["Firebase Client Auth (Google OAuth)"]
+        AdminSession["Admin Session Guard"]
     end
 
-    subgraph Server ["Next.js Server & API Routes"]
-        TokenAuth["Bearer Token Validator\n(Firebase Admin SDK)"]
-        AuthRoutes["/api/auth/me\n/api/auth/register"]
-        MemberRoutes["/api/trainers\n/api/attendance"]
-        TrainerRoutes["/api/trainer/clients\n/api/trainer/rate"]
-        AdminRoutes["/api/admin/data\n/api/admin/scan\n/api/admin/trainer-approval\n/api/admin/renew-membership"]
+    subgraph ServerLayer["Server API Route Handlers"]
+        TokenAuth["Token Verification (Firebase Admin SDK)"]
+        AuthAPI["Auth & Registration Handlers"]
+        MemberAPI["Membership & Attendance Handlers"]
+        TrainerAPI["Trainer Roster & Rating Handlers"]
+        AdminAPI["Reception Scan & Management Handlers"]
     end
 
-    subgraph Data ["Cloud Database (Google Cloud Firestore)"]
-        UsersCol[("Collection: users")]
-        AttCol[("Collection: attendance")]
-        ExpCol[("Collection: expenses")]
+    subgraph DataLayer["Cloud Database (Google Cloud Firestore)"]
+        UsersCol[("users Collection")]
+        AttCol[("attendance Collection")]
+        ExpCol[("expenses Collection")]
     end
 
     Landing --> FirebaseAuth
@@ -138,18 +138,18 @@ flowchart TD
     AdminERP --> AdminSession
 
     FirebaseAuth --> TokenAuth
-    TokenAuth --> AuthRoutes
-    TokenAuth --> MemberRoutes
-    TokenAuth --> TrainerRoutes
-    AdminSession --> AdminRoutes
+    TokenAuth --> AuthAPI
+    TokenAuth --> MemberAPI
+    TokenAuth --> TrainerAPI
+    AdminSession --> AdminAPI
 
-    AuthRoutes --> UsersCol
-    MemberRoutes --> UsersCol
-    MemberRoutes --> AttCol
-    TrainerRoutes --> UsersCol
-    AdminRoutes --> UsersCol
-    AdminRoutes --> AttCol
-    AdminRoutes --> ExpCol
+    AuthAPI --> UsersCol
+    MemberAPI --> UsersCol
+    MemberAPI --> AttCol
+    TrainerAPI --> UsersCol
+    AdminAPI --> UsersCol
+    AdminAPI --> AttCol
+    AdminAPI --> ExpCol
 ```
 
 ---
@@ -208,7 +208,7 @@ interface AttendanceRecord {
 ```
 
 ### `expenses` Collection
-Records operational gym outlays:
+Records operational club outlays:
 ```typescript
 interface ExpenseRecord {
   title: string;
@@ -228,7 +228,7 @@ interface ExpenseRecord {
 | `/api/auth/me` | `GET` | Bearer Token | Verifies token & returns user profile, role, and approval status |
 | `/api/auth/register` | `POST` | Bearer Token | Registers a new member or trainer application |
 | `/api/trainers` | `GET` | Public | Retrieves all approved trainers for member coach assignment |
-| `/api/attendance` | `GET` | Bearer Token | Returns user attendance history and live gym floor count |
+| `/api/attendance` | `GET` | Bearer Token | Returns user attendance history and live floor count |
 | `/api/attendance` | `POST` | Bearer Token | Logs a user check-in or check-out event |
 | `/api/trainer/clients` | `GET` | Public | Returns all members assigned to a specific trainer |
 | `/api/trainer/rate` | `POST` | Public | Saves trainer evaluations, ratings, and notes for a member |
@@ -263,8 +263,8 @@ interface ExpenseRecord {
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/iconic-gym-erp.git
-   cd iconic-gym-erp
+   git clone https://github.com/your-username/aura-athletic-erp.git
+   cd aura-athletic-erp
    ```
 
 2. **Install project dependencies:**
@@ -318,7 +318,7 @@ npm run start
 
 ## 🧪 Testing & Quality Assurance
 
-Iconic Gym ERP includes an end-to-end smoke testing suite powered by **Playwright**.
+AURA Athletic Club ERP includes an end-to-end smoke testing suite powered by **Playwright**.
 
 ```bash
 # Run headless smoke tests
@@ -340,7 +340,7 @@ Smoke test coverage includes:
 ## 📁 Project Structure
 
 ```text
-gym-erp/
+aura-athletic-erp/
 ├── app/
 │   ├── admin/                # Reception ERP & management control center
 │   ├── api/                  # Next.js Server Route Handlers
@@ -367,6 +367,7 @@ gym-erp/
 ├── tests/
 │   └── smoke/                # Playwright end-to-end test scenarios
 ├── .env                      # Local environment secrets (ignored by git)
+├── .env.example              # Environment variables template
 ├── .gitignore                # Production git filtering rules
 ├── next.config.ts            # Next.js build & bundler configuration
 ├── package.json              # Dependencies and script definitions
@@ -404,5 +405,5 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 ---
 
 <div align="center">
-  <sub>Built with ❤️ for <strong>Iconic Gym Karnal</strong></sub>
+  <sub>Built with ⚡ for <strong>AURA Athletic Club</strong></sub>
 </div>

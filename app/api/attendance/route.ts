@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { adminAuth, adminDb, FieldValue } from '@/lib/firebaseAdmin';
 import { computeMembership } from '@/lib/membershipUtils';
 
-const VALID_GYM_IDS = ['ICONIC_GYM_KARNAL_ENTRANCE', 'ICONIC_GYM_FLOOR_2'];
+const VALID_GYM_IDS = ['AURA_CLUB_MAIN_ENTRANCE', 'AURA_CLUB_FLOOR_2'];
 
 export async function POST(request: Request) {
   try {
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     }
 
     // Support JSON strings or direct gym IDs
-    let resolvedGymId = gymId || 'ICONIC_GYM_KARNAL_ENTRANCE';
+    let resolvedGymId = gymId || 'AURA_CLUB_MAIN_ENTRANCE';
     if (typeof gymId === 'string' && gymId.startsWith('{')) {
       try {
         const parsed = JSON.parse(gymId);
@@ -34,10 +34,10 @@ export async function POST(request: Request) {
       } catch (e) {}
     }
 
-    if (!VALID_GYM_IDS.includes(resolvedGymId) && !resolvedGymId.toLowerCase().includes('karnal')) {
+    if (!VALID_GYM_IDS.includes(resolvedGymId) && !resolvedGymId.toLowerCase().includes('aura')) {
       return NextResponse.json({ error: 'Invalid QR Code. Please scan the official Gym QR.' }, { status: 400 });
     }
-    gymId = VALID_GYM_IDS.includes(resolvedGymId) ? resolvedGymId : 'ICONIC_GYM_KARNAL_ENTRANCE';
+    gymId = VALID_GYM_IDS.includes(resolvedGymId) ? resolvedGymId : 'AURA_CLUB_MAIN_ENTRANCE';
 
 
     // 3. Fetch User from Unified 'users' Collection

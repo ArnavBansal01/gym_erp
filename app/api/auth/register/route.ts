@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         uid: 'general',
         name: 'General Floor Coach',
         phone: '',
-        email: 'coach@iconicgym.com',
+        email: 'coach@auraclub.fit',
       };
 
       // If a specific personal trainer is selected, verify approval
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
         },
         dailySessionCount: 0,
         rating: 0,
-        message: 'Welcome to Iconic Gym Karnal!',
+        message: 'Welcome to AURA Athletic Club!',
       };
     } else if (role === 'trainer') {
 

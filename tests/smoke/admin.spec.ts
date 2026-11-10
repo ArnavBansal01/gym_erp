@@ -41,7 +41,7 @@ async function doAdminLogin(page: import("@playwright/test").Page) {
 
 test("admin login page renders form", async ({ page }) => {
   await page.goto("/admin");
-  await expect(page.getByRole("heading", { name: /iconic gym erp/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /aura athletic erp/i })).toBeVisible();
   await expect(page.locator("input[type='text']").first()).toBeVisible({ timeout: 5_000 });
   await expect(page.locator("input[type='password']").first()).toBeVisible();
   await expect(page.getByRole("button", { name: /sign in to erp/i })).toBeVisible();

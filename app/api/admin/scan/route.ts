@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     // 1. Parse QR Data / Search Query
     let targetUid = '';
     let parsedAction: 'check-in' | 'check-out' | null = null;
-    let gymId = 'ICONIC_GYM_KARNAL_ENTRANCE';
+    let gymId = 'AURA_CLUB_MAIN_ENTRANCE';
     let rawQuery = '';
 
     if (typeof qrData === 'string' && (qrData.startsWith('{') || qrData.startsWith('['))) {

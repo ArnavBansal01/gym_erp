@@ -38,7 +38,7 @@ export async function GET() {
           userEmail: d.userEmail || '',
           role: d.role || 'MEMBER',
           type: d.type || 'CHECK-IN',
-          gymId: d.gymId || 'ICONIC_GYM_KARNAL_ENTRANCE',
+          gymId: d.gymId || 'AURA_CLUB_MAIN_ENTRANCE',
           time: d.timestamp?.toDate
             ? d.timestamp.toDate().toLocaleString('en-IN', {
                 day: 'numeric',
@@ -60,7 +60,7 @@ export async function GET() {
           userEmail: d.userEmail || '',
           role: d.role || 'MEMBER',
           type: d.type || 'CHECK-IN',
-          gymId: d.gymId || 'ICONIC_GYM_KARNAL_ENTRANCE',
+          gymId: d.gymId || 'AURA_CLUB_MAIN_ENTRANCE',
           time: d.timestamp?.toDate ? d.timestamp.toDate().toLocaleString('en-IN') : 'Recent',
         });
       });

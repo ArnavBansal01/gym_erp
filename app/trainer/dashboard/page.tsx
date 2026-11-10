@@ -220,7 +220,7 @@ export default function TrainerPortal() {
               <IconDumbbell size={22} />
             </div>
             <div>
-              <span className="font-bold tracking-wide text-base text-[#141414]">Iconic Gym</span>
+              <span className="font-bold tracking-wide text-base text-[#141414]">AURA Athletic</span>
               <span className="hidden sm:inline-block ml-2 px-2 py-0.5 rounded text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                 Trainer Portal
               </span>

@@ -85,7 +85,7 @@ export default function PendingApprovalPage() {
           </div>
           <h2 className="text-2xl font-bold text-[#141414] mb-2 font-display">Application Approved</h2>
           <p className="text-sm text-[#6B6760] leading-relaxed mb-6">
-            Gym management has authorized your coaching account. Welcome to the Iconic Gym staff.
+            Gym management has authorized your coaching account. Welcome to the AURA Athletic staff.
           </p>
           <div className="p-3 rounded-lg bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 text-xs font-semibold text-[#C93E0B]">
             Unlocking Trainer Dashboard...

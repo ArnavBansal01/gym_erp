@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Playwright configuration for Iconic Gym ERP smoke tests.
+ * Playwright configuration for AURA Athletic Club ERP smoke tests.
  * Tests run against a locally-started Next.js server.
  * Firebase and API calls are mocked at the network layer using route intercepts.
  */

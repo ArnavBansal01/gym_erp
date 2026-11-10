@@ -75,7 +75,7 @@ export default function TrainerAttendancePage() {
         });
         setCurrentStatus("OUT");
         const payload = JSON.stringify({
-          gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
+          gymId: "AURA_CLUB_MAIN_ENTRANCE",
           trainerUid: "guest-coach",
           name: "Coach Vikram Singh",
           action: "check-in",
@@ -131,7 +131,7 @@ export default function TrainerAttendancePage() {
 
           // Generate Trainer Duty Pass QR Code
           const payload = JSON.stringify({
-            gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
+            gymId: "AURA_CLUB_MAIN_ENTRANCE",
             trainerUid: user.uid,
             name: data.name || user.displayName || "Trainer",
             action: data.currentStatus === "IN" ? "check-out" : "check-in",
@@ -328,7 +328,7 @@ export default function TrainerAttendancePage() {
           Authorization: token || "",
         },
         body: JSON.stringify({
-          gymId: gymIdOverride || "ICONIC_GYM_KARNAL_ENTRANCE",
+          gymId: gymIdOverride || "AURA_CLUB_MAIN_ENTRANCE",
           action,
         }),
       });
@@ -444,7 +444,7 @@ export default function TrainerAttendancePage() {
           </button>
           <div className="text-right">
             <span className="text-xs font-bold tracking-wide text-[#141414] block">
-              Iconic Gym
+              AURA Athletic Club
             </span>
             <span className="text-[11px] text-[#C93E0B] font-bold tracking-wide block">
               Staff Shift Gate
