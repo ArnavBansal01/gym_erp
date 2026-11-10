@@ -27,8 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geist.variable} ${barlowCondensed.variable}`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geist.variable} ${barlowCondensed.variable}`}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>
