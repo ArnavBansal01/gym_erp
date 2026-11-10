@@ -465,7 +465,7 @@ export default function UserAttendance() {
           </button>
           <div className="text-right">
             <span className="text-xs font-bold tracking-wide text-[#141414] block">
-              Iconic Gym Karnal
+              AURA Athletic Club
             </span>
             <span className="text-[11px] text-[#C93E0B] font-bold tracking-wide block">
               Attendance Terminal

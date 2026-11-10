@@ -125,8 +125,8 @@ export default function AdminPortal() {
   useEffect(() => {
     QRCode.toDataURL(
       JSON.stringify({
-        gymId: "ICONIC_GYM_KARNAL_ENTRANCE",
-        facility: "Iconic Gym Karnal - Entrance Gate",
+        gymId: "AURA_CLUB_MAIN_ENTRANCE",
+        facility: "AURA Athletic Club - Main Gate",
         action: "check-in",
       }),
       { width: 400, margin: 2, color: { dark: "#141414", light: "#ffffff" } }
@@ -656,7 +656,7 @@ export default function AdminPortal() {
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF5A1F] to-[#FF5A1F] flex items-center justify-center text-[#141414] mx-auto shadow-md shadow-[#141414]/10">
               <IconShield size={24} />
             </div>
-            <h2 className="text-3xl font-bold text-[#141414] font-display">Iconic Gym ERP</h2>
+            <h2 className="text-3xl font-bold text-[#141414] font-display">AURA Athletic ERP</h2>
             <p className="text-xs text-[#6B6760]">Owner & Administrator Management Terminal</p>
           </div>
 
@@ -727,7 +727,7 @@ export default function AdminPortal() {
               <IconShield size={22} />
             </div>
             <div>
-              <span className="font-bold tracking-wide text-base text-[#141414]">Iconic Gym Karnal</span>
+              <span className="font-bold tracking-wide text-base text-[#141414]">AURA Athletic Club</span>
               <span className="hidden sm:inline-block ml-2 px-2 py-0.5 rounded text-[11px] font-bold tracking-wide bg-[#FF5A1F]/10 text-[#C93E0B] border border-[#FF5A1F]/20">
                 ERP Admin
               </span>
@@ -1886,7 +1886,7 @@ export default function AdminPortal() {
 
             <div className="space-y-1">
               <h2 className="text-2xl font-bold text-[#141414] tracking-wide font-display">
-                Iconic Gym Karnal
+                AURA Athletic Club
               </h2>
               <p className="text-xs text-[#6B6760]">
                 Entrance Turnstile Check-In QR Poster
@@ -1935,7 +1935,7 @@ export default function AdminPortal() {
                     printWin.document.write(`
                       <html>
                         <head>
-                          <title>Iconic Gym Karnal - Entrance QR Poster</title>
+                          <title>AURA Athletic Club - Entrance QR Poster</title>
                           <style>
                             body { font-family: sans-serif; text-align: center; padding: 40px; }
                             h1 { font-size: 28px; margin-bottom: 4px; text-transform: uppercase; }
@@ -1945,10 +1945,10 @@ export default function AdminPortal() {
                           </style>
                         </head>
                         <body>
-                          <h1>ICONIC GYM KARNAL</h1>
+                          <h1>AURA ATHLETIC CLUB</h1>
                           <h2>Entrance Gate Turnstile & Check-In</h2>
                           <img src="${entrancePosterQr}" alt="QR" />
-                          <p>Open the Iconic Gym App &gt; Attendance &gt; Camera Scanner to Check In</p>
+                          <p>Open the AURA App &gt; Attendance &gt; Camera Scanner to Check In</p>
                           <script>window.onload = function() { window.print(); window.close(); }<\/script>
                         </body>
                       </html>
