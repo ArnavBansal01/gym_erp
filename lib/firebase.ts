@@ -1,7 +1,6 @@
 // src/lib/firebase.ts
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSy_placeholder_key_for_build",
@@ -17,11 +16,10 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 const auth = getAuth(app);
-const db = getFirestore(app);
 
 // Enable phone auth settings in browser
 if (typeof window !== "undefined") {
   auth.useDeviceLanguage();
 }
 
-export { auth, db };
+export { auth };

@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
+import { subscribeUser } from "@/lib/pgSubscribe";
 import { computeMembership } from "@/lib/membershipUtils";
 import {
   IconDumbbell,
@@ -85,8 +85,8 @@ export default function TrainerPortal() {
         }
 
         // Live listener for trainer profile doc in unified 'users' collection
-        const trainerDocRef = doc(db, "users", currentUser.uid);
-        unsubscribeSnap = onSnapshot(trainerDocRef, (docSnap) => {
+        const trainerDocRef = currentUser.uid;
+        unsubscribeSnap = subscribeUser(trainerDocRef, (docSnap) => {
           if (docSnap.exists()) {
             const data = docSnap.data();
             const now = new Date();

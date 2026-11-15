@@ -3,9 +3,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
+import { subscribeUser } from "@/lib/pgSubscribe";
 import { Html5Qrcode } from "html5-qrcode";
 import { computeMembership } from "@/lib/membershipUtils";
 import {
@@ -99,8 +99,8 @@ export default function UserAttendance() {
         return;
       }
 
-      const userDocRef = doc(db, "users", user.uid);
-      unsubscribeSnap = onSnapshot(userDocRef, (docSnap) => {
+      const userDocRef = user.uid;
+      unsubscribeSnap = subscribeUser(userDocRef, (docSnap) => {
         if (!docSnap.exists()) {
           const payload = JSON.stringify({
             gymId: "AURA_CLUB_MAIN_ENTRANCE",

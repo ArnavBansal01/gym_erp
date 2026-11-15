@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db } from "@/lib/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { auth } from "@/lib/firebase";
+import { subscribeUser } from "@/lib/pgSubscribe";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { computeMembership, GYM_PLANS } from "@/lib/membershipUtils";
 import {
@@ -70,8 +70,8 @@ export default function UserPortal() {
       }
 
       try {
-        const userRef = doc(db, "users", currentUser.uid);
-        unsubscribeDoc = onSnapshot(userRef, (snap) => {
+        const userRef = currentUser.uid;
+        unsubscribeDoc = subscribeUser(userRef, (snap) => {
           if (!snap.exists()) {
             setUserData({
               uid: currentUser.uid,

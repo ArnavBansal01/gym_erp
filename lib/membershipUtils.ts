@@ -46,6 +46,8 @@ export function computeMembership(rawPlan: any, createdAt: any) {
     startDate = new Date(rawPlan.startDate);
   } else if (createdAt?.toDate) {
     startDate = createdAt.toDate();
+  } else if (createdAt) {
+    startDate = new Date(createdAt);
   }
 
   let endDate: Date;

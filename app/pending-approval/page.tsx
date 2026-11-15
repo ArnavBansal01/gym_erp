@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
+import { subscribeUser } from "@/lib/pgSubscribe";
 import { IconClock, IconShield, IconCheck, IconLogOut, IconDumbbell } from "@/lib/svgIcons";
 
 export default function PendingApprovalPage() {
@@ -22,8 +22,8 @@ export default function PendingApprovalPage() {
         return;
       }
 
-      const userDocRef = doc(db, "users", currentUser.uid);
-      unsubscribeSnap = onSnapshot(userDocRef, (docSnap) => {
+      const userDocRef = currentUser.uid;
+      unsubscribeSnap = subscribeUser(userDocRef, (docSnap) => {
         if (docSnap.exists()) {
           const data = docSnap.data();
 

@@ -182,6 +182,16 @@ export async function mockApiRoutes(page: Page) {
     }
   });
 
+  // GET /api/me  (PostgreSQL replacement for the Firestore onSnapshot listener; polled by the pages)
+  await page.route("**/api/me", async (route: Route) => {
+    const auth = route.request().headers()["authorization"] || "";
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ exists: true, user: auth.includes("trainer") ? FAKE_TRAINER : FAKE_MEMBER }),
+    });
+  });
+
   // POST /api/auth/register
   await page.route("**/api/auth/register", async (route: Route) => {
     await route.fulfill({
